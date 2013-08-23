@@ -588,6 +588,22 @@ public abstract class BaseStatusBar extends SystemUI implements
                 null, UserHandle.CURRENT);
     }
 
+    private void launchFloating(PendingIntent pIntent) {
+        Intent overlay = new Intent();
+        overlay.addFlags(Intent.FLAG_FLOATING_WINDOW | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        try {
+            ActivityManagerNative.getDefault().resumeAppSwitches();
+            ActivityManagerNative.getDefault().dismissKeyguardOnNextActivity();
+        } catch (RemoteException e) {
+        }
+        try {
+            pIntent.send(mContext, 0, overlay);
+        } catch (PendingIntent.CanceledException e) {
+            // the stack trace isn't very helpful here.  Just log the exception message.
+            Slog.w(TAG, "Sending contentIntent failed: " + e);
+        }
+    }
+
     protected View.OnLongClickListener getNotificationLongClicker() {
         return new View.OnLongClickListener() {
             @Override
@@ -595,8 +611,17 @@ public abstract class BaseStatusBar extends SystemUI implements
                 final NotificationData.Entry entry = (Entry) v.getTag();
                 final StatusBarNotification sbNotification = entry.notification;
                 final String packageNameF = sbNotification.getPackageName();
+                final PendingIntent contentIntent = sbNotification.getNotification().contentIntent;
                 if (packageNameF == null) return false;
                 if (v.getWindowToken() == null) return false;
+
+                //Long click menu broken on PIE mode...pop up menu is useless (auto-launch on long click)
+                if (expanded) {
+                    launchFloating(contentIntent);
+                    animateCollapsePanels(CommandQueue.FLAG_EXCLUDE_NONE);
+                    return true;
+                }
+                
                 mNotificationBlamePopup = new PopupMenu(mContext, v);
                 mNotificationBlamePopup.getMenuInflater().inflate(
                         R.menu.notification_popup_menu,
@@ -650,6 +675,9 @@ public abstract class BaseStatusBar extends SystemUI implements
                             values.put(PackageTable.PACKAGE_NAME, packageNameF);
                             mContext.getContentResolver().insert(SPAM_MESSAGE_URI, values);
                             removeNotification(entry.key);
+                        } else if (item.getItemId() == R.id.notification_floating_item) {
+                            launchFloating(contentIntent);
+                            animateCollapsePanels(CommandQueue.FLAG_EXCLUDE_NONE);
                         } else {
                             return false;
                         }
