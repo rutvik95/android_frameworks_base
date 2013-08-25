@@ -82,6 +82,9 @@ public class UserTile extends QuickSettingsTile {
                     }
                     cursor.close();
                 }
+		if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
             }
         };
         qsc.registerAction(Intent.ACTION_USER_SWITCHED, this);
