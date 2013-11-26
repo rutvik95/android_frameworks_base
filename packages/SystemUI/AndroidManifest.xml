@@ -73,6 +73,9 @@
 
     <!-- Keyguard -->
     <uses-permission android:name="android.permission.CONTROL_KEYGUARD" />
+ 
+    <!--Halo-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- Equalizer -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -285,6 +288,9 @@
                   android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"
                   android:exported="true"
                   android:authorities="com.cyanogenmod.spam" />
+
+        <activity android:name="com.android.systemui.Transparent"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     </application>
 </manifest>
