@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 The Android Open Source Project
+<!-- Copyright (C) 2013 SlimRoms Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -29,17 +29,14 @@
 
     <!-- Normally just a redirection, but this is used to make ourselves a
          dialog on large tablets -->
-    <style name="Theme" parent="@android:style/Theme.Holo.Light">
+    <style name="Theme" parent="@android:style/Theme.Holo">
         <item name="android:actionOverflowButtonStyle">@style/DarkerOverflow</item>
     </style>
-    
-    <style name="DarkerOverflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
+
+    <style name="DarkerOverflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_menu_overflow</item>
     </style>
 
-    <style name="SettingsTheme" parent="@android:style/Theme.Holo.Light.DialogWhenLarge">
-    </style>
-    
-    <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.Light.DialogWhenLarge" />
+    <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.DialogWhenLarge" />
 
 </resources>
