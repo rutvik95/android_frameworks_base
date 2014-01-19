@@ -169,6 +169,8 @@ public class Clock extends TextView implements DemoMode, OnClickListener, OnLong
             filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
             filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
             filter.addAction(Intent.ACTION_USER_SWITCHED);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
 
             getContext().registerReceiver(mIntentReceiver, filter, null, getHandler());
         }
@@ -213,7 +215,16 @@ public class Clock extends TextView implements DemoMode, OnClickListener, OnLong
                     mClockFormatString = ""; // force refresh
                 }
             }
-            updateClock();
+
+            if (action.equals(Intent.ACTION_SCREEN_ON)) {
+                mScreenOn = true;
+            } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                mScreenOn = false;
+            }
+
+            if (mScreenOn) {
+                updateClock();
+            }
         }
     };
 
