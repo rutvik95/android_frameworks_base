@@ -99,6 +99,10 @@ public class BatteryController extends BroadcastReceiver {
         }
     }
 
+    public void unregisterController(Context context) {
+        context.unregisterReceiver(this);
+    }    
+
     public void onBatteryMeterModeChanged(BatteryMeterMode mode) {
         for (BatteryStateChangeCallback cb : mChangeCallbacks) {
             cb.onBatteryMeterModeChanged(mode);

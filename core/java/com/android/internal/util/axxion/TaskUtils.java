@@ -20,6 +20,7 @@ package com.android.internal.util.axxion;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Process;
 import android.os.UserHandle;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -27,13 +28,53 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.ActivityNotFoundException;
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.util.Log;
 
 import java.util.List;
 
 public class TaskUtils {
 
-    public static void toggleLastAppImpl(final Context context){
+    public static boolean killActiveTask(final Context context){
+        final Intent intent = new Intent(Intent.ACTION_MAIN);
+        String defaultHomePackage = "com.android.launcher";
+        intent.addCategory(Intent.CATEGORY_HOME);
+        final ResolveInfo res = context.getPackageManager().resolveActivity(intent, 0);
+        if (res.activityInfo != null && !res.activityInfo.packageName.equals("android")) {
+            defaultHomePackage = res.activityInfo.packageName;
+        }
+        boolean targetKilled = false;
+        final ActivityManager am = (ActivityManager) context
+                .getSystemService(Activity.ACTIVITY_SERVICE);
+        List<RunningAppProcessInfo> apps = am.getRunningAppProcesses();
+        for (RunningAppProcessInfo appInfo : apps) {
+            int uid = appInfo.uid;
+            // Make sure it's a foreground user application (not system,
+            // root, phone, etc.)
+            if (uid >= Process.FIRST_APPLICATION_UID && uid <= Process.LAST_APPLICATION_UID
+                    && appInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                if (appInfo.pkgList != null && (appInfo.pkgList.length > 0)) {
+                    for (String pkg : appInfo.pkgList) {
+                        if (!pkg.equals("com.android.systemui")
+                                && !pkg.equals(defaultHomePackage)) {
+                            am.forceStopPackage(pkg);
+                            targetKilled = true;
+                            break;
+                        }
+                    }
+                } else {
+                     Process.killProcess(appInfo.pid);
+                     targetKilled = true;
+                }
+            }
+            if (targetKilled) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void toggleLastApp(final Context context){
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         final ActivityManager am = (ActivityManager) context
                 .getSystemService(Activity.ACTIVITY_SERVICE);
