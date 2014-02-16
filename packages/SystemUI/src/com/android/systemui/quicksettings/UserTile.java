@@ -116,8 +116,10 @@ public class UserTile extends QuickSettingsTile {
         }
 
         if (iv != null) {
+        } else if (mTileTextColor != -2) {
+            tv.setTextColor(mTileTextColor);
+        }			
             iv.setImageDrawable(userAvatar);
-        }
     }
 
     private void queryForUserInformation() {
