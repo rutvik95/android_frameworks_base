@@ -2024,4 +2024,11 @@
 
   <!-- External media format -->
   <java-symbol type="string" name="extmedia_format_message_cm" />
+
+  <!-- Slim recent app screen-->
+  <java-symbol type="integer" name="config_recentDefaultDur" />
+  <java-symbol type="integer" name="config_recentExitDur" />
+  <java-symbol type="style" name="Animation.RecentScreen" />
+  <java-symbol type="anim" name="recent_screen_enter" />
+  <java-symbol type="anim" name="recent_screen_fade_out" />
 </resources>
