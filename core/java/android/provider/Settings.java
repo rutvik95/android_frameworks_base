@@ -3367,6 +3367,11 @@ public final class Settings {
         public static final String ANIMATION_CONTROLS_EXIT_ONLY = "animation_controls_exit_only";
         public static final String ANIMATION_CONTROLS_REVERSE_EXIT = "animation_controls_reverse_exit";
 
+       /**
+        * ToastAnimation
+        * @hide
+        */
+        public static final String TOAST_ANIMATION = "toast_animation";
 
         /**
          * ListView Animations
