@@ -74,5 +74,7 @@
   <java-symbol type="style" name="Animation.Toast.GrowFadeBottom" />
   <java-symbol type="style" name="Animation.Toast.Translucent" />
   <java-symbol type="style" name="Animation.Toast.SlideRightLeft" />
-  <java-symbol type="style" name="Animation.Toast.SlideLeftRight" />   
+  <java-symbol type="style" name="Animation.Toast.SlideLeftRight" />  
+  
+  <java-symbol type="array" name="anim_controls_entries" /> 
 </resources>
