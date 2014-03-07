@@ -93,6 +93,10 @@ import com.android.internal.util.cm.SpamFilter.SpamContract.PackageTable;
 import com.android.systemui.statusbar.phone.Ticker;
 import com.android.internal.widget.SizeAdaptiveLayout;
 import com.android.systemui.R;
+<<<<<<< HEAD
+=======
+import com.android.systemui.RecentsComponent;
+>>>>>>> 8d6ac0d... Toggle to switch recent panels styles (1/2)
 import com.android.systemui.SearchPanelView;
 import com.android.systemui.SystemUI;
 import com.android.systemui.cm.SpamMessageProvider;
@@ -170,6 +174,10 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     protected int mCurrentUserId = 0;
 
+    // Recents toggle controller
+    private RecentController slimRecents;
+    private RecentsComponent stockRecents;
+
     protected int mLayoutDirection = -1; // invalid
     private Locale mLocale;
     protected boolean mUseHeadsUp = false;
@@ -213,9 +221,9 @@ public abstract class BaseStatusBar extends SystemUI implements
     private boolean mDeviceProvisioned = false;
     private int mAutoCollapseBehaviour;
 
-    private RecentController mRecents;
-
     private int mExpandedDesktopStyle = 0;
+
+    private boolean mCustomRecent = false;
 
     public Ticker getTicker() {
         return mTicker;
@@ -348,6 +356,15 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
+
+        mCustomRecent = Settings.System.getBoolean(
+                        mContext.getContentResolver(), Settings.System.CUSTOM_RECENT_TOGGLE, false);
+
+        if (mCustomRecent) {
+            slimRecents = new RecentController(mContext);
+        } else {
+            stockRecents = getComponent(RecentsComponent.class);
+        }
 
         mLocale = mContext.getResources().getConfiguration().locale;
         mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
@@ -955,32 +972,64 @@ public abstract class BaseStatusBar extends SystemUI implements
     };
 
     protected void toggleRecentsActivity() {
+<<<<<<< HEAD
         if (mRecents != null) {
             mRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView());
+=======
+        if (stockRecents != null || slimRecents != null) {
+            mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                    Settings.System.CUSTOM_RECENT_TOGGLE, false);
+            if (mCustomRecent) {
+                slimRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView());
+            } else {
+                stockRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView(),
+                        mExpandedDesktopStyle);
+            }
+>>>>>>> 8d6ac0d... Toggle to switch recent panels styles (1/2)
         }
     }
 
     protected void preloadRecentTasksList() {
-        if (mRecents != null) {
-            mRecents.preloadRecentTasksList();
+        if (stockRecents != null || slimRecents != null) {
+            mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                    Settings.System.CUSTOM_RECENT_TOGGLE, false);
+            if (mCustomRecent) {
+                slimRecents.preloadRecentTasksList();
+            } else {
+                stockRecents.preloadRecentTasksList();
+            }
         }
     }
 
     protected void cancelPreloadingRecentTasksList() {
-        if (mRecents != null) {
-            mRecents.cancelPreloadingRecentTasksList();
+        if (stockRecents != null || slimRecents != null) {
+            mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                    Settings.System.CUSTOM_RECENT_TOGGLE, false);
+            if (mCustomRecent) {
+                slimRecents.cancelPreloadingRecentTasksList();
+            } else {
+                stockRecents.cancelPreloadingRecentTasksList();
+            }
         }
     }
 
     protected void closeRecents() {
-        if (mRecents != null) {
-            mRecents.closeRecents();
+        if (stockRecents != null || slimRecents != null) {
+            mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                    Settings.System.CUSTOM_RECENT_TOGGLE, false);
+            if (mCustomRecent) {
+                slimRecents.closeRecents();
+            } else {
+                stockRecents.closeRecents();
+            }
         }
     }
 
     protected void rebuildRecentsScreen() {
-        if (mRecents != null) {
-            mRecents.rebuildRecentsScreen();
+        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                Settings.System.CUSTOM_RECENT_TOGGLE, false);
+        if (slimRecents != null && mCustomRecent) {
+                slimRecents.rebuildRecentsScreen();
         }
     }
 
