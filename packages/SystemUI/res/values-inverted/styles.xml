@@ -43,9 +43,13 @@
 
     <style name="TextAppearance.StatusBar.Expanded" parent="@*android:style/TextAppearance.StatusBar" />
 
-
     <style name="TextAppearance.StatusBar.Expanded.Network" parent="@style/TextAppearance.StatusBar.Expanded.Date">
 	<item name="android:textColor">#ffff4444</item>
 	</style>
-    
+	
+   <style name="RecentBaseStyle"  parent="@*android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/RecentPopupMenu</item>
+    </style>
+
+    <style name="RecentPopupMenu" parent="@*android:style/Widget.Holo.ListPopupWindow" />    
 </resources>
