@@ -183,6 +183,7 @@ public class NotificationManagerService extends INotificationManager.Stub
 
     // for enabling and disabling notification pulse behaviour
     private boolean mScreenOn = true;
+    private boolean mScreenOnNotificationLed = false;
     private boolean mDreaming = false;
     private boolean mInCall = false;
     private boolean mBatterySaverDisableLED = false;
@@ -1590,7 +1591,7 @@ public class NotificationManagerService extends INotificationManager.Stub
                 }
             } else if (action.equals(Intent.ACTION_USER_PRESENT)) {
                 // turn off LED when user passes through lock screen
-                if (!mDreaming) {
+                if (!mDreaming && !mScreenOnNotificationLed) {
                     if (mLedNotification == null || !isLedNotificationForcedOn(mLedNotification)) {
                         mNotificationLight.turnOff();
                     }
@@ -1642,6 +1643,8 @@ public class NotificationManagerService extends INotificationManager.Stub
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Global.getUriFor(
                     Settings.Global.BATTERY_SAVER_LED_DISABLE), false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Global.getUriFor(                 
+                    Settings.System.SCREEN_ON_NOTIFICATION_LED), false, this, UserHandle.USER_ALL);
             update(null);
         }
 
@@ -1678,6 +1681,11 @@ public class NotificationManagerService extends INotificationManager.Stub
                 parseNotificationPulseCustomValuesString(Settings.System.getStringForUser(resolver,
                         Settings.System.NOTIFICATION_LIGHT_PULSE_CUSTOM_VALUES, UserHandle.USER_CURRENT));
             }
+
+            // LED screen on notification
+            mScreenOnNotificationLed = Settings.System.getIntForUser(resolver,
+                    Settings.System.SCREEN_ON_NOTIFICATION_LED, 0,
+                    UserHandle.USER_CURRENT) == 1;
 
             if (uri == null || ENABLED_NOTIFICATION_LISTENERS_URI.equals(uri)) {
                 rebindListenerServices();
@@ -2812,7 +2820,7 @@ public class NotificationManagerService extends INotificationManager.Stub
             enableLed = false;
         } else if (isLedNotificationForcedOn(mLedNotification)) {
             enableLed = true;
-        } else if (mInCall || (mScreenOn && !mDreaming)) {
+        } else if (mInCall || (mScreenOn && (!mDreaming || !mScreenOnNotificationLed))) {
             enableLed = false;
         } else if (QuietHoursUtils.inQuietHours(mContext, Settings.System.QUIET_HOURS_DIM)) {
             enableLed = false;
