@@ -3459,14 +3459,11 @@ public final class Settings {
 
         /**
          * Expanded desktop on/off state
-<<<<<<< HEAD
          * @hide
          */
         public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
 
         /**
-=======
->>>>>>> 8496b89... Ram bar (1/2)
          * @hide
          */
         public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
@@ -3932,6 +3929,14 @@ public final class Settings {
          * @hide
          */
         public static final String RECENT_PANEL_GRAVITY = "recent_panel_gravity";
+
+        /**
+         * Recent panel expanded mode (auto = 0, always = 1, never = 2).
+         * default = 0.
+         *
+         * @hide
+         */
+        public static final String RECENT_PANEL_EXPANDED_MODE = "recent_panel_expanded_mode";
 
         /**
          * Size of recent panel view in percent (default = 100).
