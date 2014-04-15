@@ -30,4 +30,7 @@
     <!-- Title shown in notification popup for launching notification in floating mode -->
     <string name="status_bar_notification_floating_item_title">Floating mode</string>
     
+    <!-- Long-press back kill application -->
+    <string name="app_killed_message">App killed</string>
+   
 </resources>
