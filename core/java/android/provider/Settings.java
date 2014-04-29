@@ -4057,6 +4057,14 @@ public final class Settings {
         public static final String KEY_MENU_ACTION = "key_menu_action";
 
         /**
+         * Either if notification peek is enabled of disabled
+         * 0 = disabled (default)
+         * 1 = enabled
+         * @hide
+         */
+        public static final String PEEK_STATE = "peek_state";
+
+        /**
          * Action to perform when the menu key is long-pressed.
          * (Default is 0 on devices with a search key, 3 on devices without)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
@@ -4404,7 +4412,7 @@ public final class Settings {
          */
         public static final String LOCKSCREEN_NOTIFICATIONS_PRIVACY_MODE = "lockscreen_notifications_privacy_mode";
 
-       /**
+        /**
          * A list of packages to exclude from being displayed as lockscreen notifications.
          * This should be a string of packages separated by |
          * @hide
@@ -4416,8 +4424,16 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_NOTIFICATIONS_DISABLE_HEADS_UP = "lockscreen_notifications_disable_heads_up";
+ 
+        /**
+         * Either if notification peek is enabled of disabled
+         * 0 = disabled (default)
+         * 1 = enabled
+         * @hide
+         */
+        public static final String PEEK_STATE = "peek_state";
          
-       /**
+        /**
          * Swipe recents for floating windows option
          * @hide
          */
