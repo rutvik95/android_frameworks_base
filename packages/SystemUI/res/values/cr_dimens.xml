@@ -17,14 +17,6 @@
 -->
 <resources>
 
-    <!-- Network stats text size -->
-    <dimen name="network_stats_text_size">9dp</dimen>
-
-    <!-- Notification Shortcuts -->
-    <dimen name="notification_shortcuts_close_handle_height">28dp</dimen>
-    <dimen name="notification_shortcuts_spacing_height">88dp</dimen>
-    <dimen name="notification_shortcuts_drawer_margin">56dp</dimen>
-
     <!-- Top margin for overflow notifications container shown in the P.O.R.N. view -->
     <dimen name="glowpad_overflow_notifications_margin_top">64dp</dimen>
 
@@ -64,5 +56,4 @@
     <dimen name="halo_speech_vpadding_top">3dp</dimen>
     <dimen name="halo_speech_vpadding_bottom">3dp</dimen>
     <dimen name="halo_content_max_width">250dp</dimen>
- 
 </resources>

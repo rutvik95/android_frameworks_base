@@ -4261,6 +4261,14 @@ public final class Settings {
          * @hide
          */
         public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_show_topmost";
+        
+        /**
+         * Either if notification peek is enabled of disabled
+         * 0 = disabled (default)
+         * 1 = enabled
+         * @hide
+         */
+        public static final String PEEK_STATE = "peek_state";        
 
         /**
          * Enables/disables lockscreen notifications
