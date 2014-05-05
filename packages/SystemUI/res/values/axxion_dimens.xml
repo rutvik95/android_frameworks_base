@@ -53,11 +53,11 @@
     <dimen name="pie_sysinfo_height">85sp</dimen>
     
     <!-- Notification peek dimens -->
-    <dimen name="item_padding">5dp</dimen>
-    <dimen name="small_notification_icon_size">30dp</dimen>
-    <dimen name="small_notification_icon_padding">2dp</dimen>
-    <dimen name="notification_icon_size">46dp</dimen>
-    <dimen name="notification_text_width">300dp</dimen>
-    <dimen name="clock_padding">10dp</dimen>
-    <dimen name="clock_size">15dp</dimen>
+    <dimen name="item_padding">10dp</dimen>
+    <dimen name="small_notification_icon_size">60dp</dimen>
+    <dimen name="small_notification_icon_padding">4dp</dimen>
+    <dimen name="notification_icon_size">92dp</dimen>
+    <dimen name="notification_text_width">600dp</dimen>
+    <dimen name="clock_padding">20dp</dimen>
+    <dimen name="clock_size">30dp</dimen>
 </resources>
