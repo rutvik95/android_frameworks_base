@@ -187,6 +187,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected boolean mHaloActive;
     public boolean mHaloTaskerActive = false;
     protected ImageView mHaloButton;
+    protected boolean mHaloButtonVisible = true;
 
     // Notification peek
     protected NotificationPeek mNotificationPeek;
@@ -861,6 +862,9 @@ public abstract class BaseStatusBar extends SystemUI implements
         mHandler.obtainMessage(MSG_SET_PIE_TRIGGER_MASK,
                 newMask, lock ? 1 : 0, null).sendToTarget();
     }
+    
+    @Override
+    public void setButtonDrawable(int buttonId, int iconId) {}
 
     protected abstract WindowManager.LayoutParams getSearchLayoutParams(
             LayoutParams layoutParams);
