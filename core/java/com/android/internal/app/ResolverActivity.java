@@ -123,6 +123,8 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             boolean alwaysUseOption) {
         if (getResources().getConfiguration().uiInvertedMode
                 == Configuration.UI_INVERTED_MODE_YES) {
+		} else if { (getResources().getConfiguration().uiThemeMode
+                == Configuration.UI_THEME_MODE_HOLO_DARK) {			
             setTheme(R.style.Theme_DeviceDefault_Dialog_Alert);
         } else {
             setTheme(R.style.Theme_DeviceDefault_Light_Dialog_Alert);

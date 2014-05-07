@@ -30,5 +30,8 @@
   <java-symbol type="color" name="holo_green_dark" />
   <java-symbol type="color" name="holo_purple_dark" />
   <java-symbol type="color" name="holo_red_dark" />
+  
+  <!-- UI theme mode -->
+  <java-symbol type="integer" name="config_uiThemeMode" />
 
 </resources>

@@ -38,6 +38,7 @@ static struct {
     jfieldID navigationHidden;
     jfieldID orientation;
     jfieldID uiInvertedMode;
+    jfieldID uiThemeMode;
     jfieldID uiMode;
     jfieldID screenWidthDp;
     jfieldID screenHeightDp;
@@ -64,6 +65,7 @@ void android_Configuration_getFromJava(
 
     out->orientation = env->GetIntField(clazz, gConfigurationClassInfo.orientation);
     out->uiInvertedMode = env->GetIntField(clazz, gConfigurationClassInfo.uiInvertedMode);
+    out->uiThemeMode = env->GetIntField(clazz, gConfigurationClassInfo.uiThemeMode);
     out->uiMode = env->GetIntField(clazz, gConfigurationClassInfo.uiMode);
 
     out->screenWidthDp = env->GetIntField(clazz, gConfigurationClassInfo.screenWidthDp);
@@ -118,6 +120,8 @@ int register_android_content_res_Configuration(JNIEnv* env)
             "orientation", "I");
     GET_FIELD_ID(gConfigurationClassInfo.uiInvertedMode, clazz,
             "uiInvertedMode", "I");
+    GET_FIELD_ID(gConfigurationClassInfo.uiThemeMode, clazz,
+            "uiThemeMode", "I");
     GET_FIELD_ID(gConfigurationClassInfo.uiMode, clazz,
             "uiMode", "I");
     GET_FIELD_ID(gConfigurationClassInfo.screenWidthDp, clazz,

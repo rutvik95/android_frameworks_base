@@ -5,4 +5,10 @@
     <!-- Enable or disable hardware keys when nav bar is up -->
     <bool name="config_hwKeysOnNavBar">false</bool>
   
+    <!-- Control the default theme mode for the UI to use.
+         One of the following values (See Configuration.java):
+             1 UI_THEME_MODE_NORMAL (default)
+             2 UI_THEME_MODE_HOLO_DARK
+             3 UI_THEME_MODE_HOLO_LIGHT -->
+    <integer name="config_uiThemeMode">1</integer>    
 </resources>
