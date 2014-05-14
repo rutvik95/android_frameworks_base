@@ -51,6 +51,10 @@
     <string name="dlg_ok">Ok</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    
+        <!-- CPUFreq -->
+    <string name="cpufreq_max">Max CPU Freq</string>
+    <string name="cpufreq_min">Min CPU Freq</string>  
 
     <!-- Notifications reminders -->
     <string name="quick_settings_reminder">Reminder</string>
