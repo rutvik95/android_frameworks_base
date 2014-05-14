@@ -35,7 +35,7 @@ public class QSConstants {
         public static final String TILE_COMPASS = "toggleCompass";
 	    public static final String TILE_POWER = "togglePowerMenu"; 
         public static final String TILE_ONTHEGO = "toggleOnTheGo";
-
+        public static final String TILE_CPUFREQ = "toggleCPUFreq";
         public static final String TILE_DELIMITER = "|";
         public static ArrayList<String> TILES_DEFAULT = new ArrayList<String>();
 
@@ -48,8 +48,10 @@ public class QSConstants {
             TILES_DEFAULT.add(TILE_GPS);
             TILES_DEFAULT.add(TILE_TORCH);
             TILES_DEFAULT.add(TILE_BATTERY);
+            TILES_DEFAULT.add(TILE_VOLUME);
             TILES_DEFAULT.add(TILE_AIRPLANE);
             TILES_DEFAULT.add(TILE_BLUETOOTH);
             TILES_DEFAULT.add(TILE_AUTOROTATE);
+            TILES_DEFAULT.add(TILE_CPUFREQ);
         }
 }
