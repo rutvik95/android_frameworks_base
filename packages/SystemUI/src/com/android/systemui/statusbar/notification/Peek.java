@@ -71,11 +71,11 @@ public class Peek implements SensorActivityHandler.SensorChangedCallback {
     public final static boolean DEBUG = false;
 
     private static final float ICON_LOW_OPACITY = 0.3f;
-    private static final int NOTIFICATION_PEEK_TIME = 5000; // 5 secs
     private static final long SCREEN_ON_START_DELAY = 300; // 300 ms
     private static final long REMOVE_VIEW_DELAY = 300; // 300 ms
 
     private int mPeekPickupTimeout;
+    private int mPeekWakeTimeout;
 
     private BaseStatusBar mStatusBar;
 
@@ -321,6 +321,9 @@ public class Peek implements SensorActivityHandler.SensorChangedCallback {
     private void scheduleTasks() {
         mHandler.removeCallbacksAndMessages(null);
 
+        mPeekWakeTimeout = Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.PEEK_WAKE_TIMEOUT, 5000, UserHandle.USER_CURRENT);
+
         // turn on screen task
         mHandler.postDelayed(new Runnable() {
 		    @Override
@@ -339,7 +342,7 @@ public class Peek implements SensorActivityHandler.SensorChangedCallback {
                     mPowerManager.goToSleep(SystemClock.uptimeMillis());
                 }
 		    }
-	    }, SCREEN_ON_START_DELAY + NOTIFICATION_PEEK_TIME);
+	    }, SCREEN_ON_START_DELAY + mPeekWakeTimeout);
 
         // remove view task (make sure screen is off by delaying a bit)
         mHandler.postDelayed(new Runnable() {
@@ -347,7 +350,7 @@ public class Peek implements SensorActivityHandler.SensorChangedCallback {
 		    public void run() {
                 dismissNotification();
 		    }
-	    }, SCREEN_ON_START_DELAY + (NOTIFICATION_PEEK_TIME * (long) 1.3));
+	    }, SCREEN_ON_START_DELAY + (mPeekWakeTimeout * (long) 1.3));
     }
 
     public void showNotification(StatusBarNotification n, boolean update) {
@@ -681,6 +684,9 @@ public class Peek implements SensorActivityHandler.SensorChangedCallback {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.System.PEEK_PICKUP_TIMEOUT), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.System.PEEK_WAKE_TIMEOUT), false, this,
                     UserHandle.USER_ALL);
         }
 
