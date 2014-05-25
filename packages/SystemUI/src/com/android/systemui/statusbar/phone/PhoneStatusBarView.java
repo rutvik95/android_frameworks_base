@@ -198,6 +198,7 @@ public class PhoneStatusBarView extends PanelBar {
             mBar.mStatusBarWindow.setBackgroundColor(0);
         }
         mBar.restorePieTriggerMask();
+        mBar.setOverwriteImeIsActive(false);
     }
 
     @Override
@@ -213,6 +214,7 @@ public class PhoneStatusBarView extends PanelBar {
             mBar.updatePieTriggerMask(EdgeGesturePosition.LEFT.FLAG
                     | EdgeGesturePosition.RIGHT.FLAG
                     | EdgeGesturePosition.TOP.FLAG, true);
+            mBar.setOverwriteImeIsActive(true);
         }
 
         mFadingPanel = openPanel;

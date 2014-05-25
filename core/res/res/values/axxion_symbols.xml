@@ -51,4 +51,13 @@
   <!-- On-The-Go -->
   <java-symbol type="string" name="global_action_onthego" />
   <java-symbol type="drawable" name="ic_lock_onthego" />  
+  
+  <!-- Navigation bar -->
+  <java-symbol type="string" name="global_actions_nav_bar_mode" />
+  <java-symbol type="string" name="global_actions_nav_bar_mode_on_status" />
+  <java-symbol type="string" name="global_actions_nav_bar_mode_off_status" />
+  <java-symbol type="drawable" name="ic_lock_navbar_on" />
+  <java-symbol type="drawable" name="ic_lock_navbar_off" />
+  <java-symbol type="string" name="disable_navigation_pie_error" />
+    
 </resources>

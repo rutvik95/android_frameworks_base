@@ -1741,7 +1741,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mUserRotationAngles = Settings.System.getIntForUser(resolver,
                     Settings.System.ACCELEROMETER_ROTATION_ANGLES, -1, UserHandle.USER_CURRENT);
 
-	    setHasNavigationBar();
+            setHasNavigationBar();
+
+            mNavigationBarHeight = Settings.System.getIntForUser(
+                    mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_HEIGHT,
+                    mContext.getResources()
+                            .getDimensionPixelSize(
+                                com.android.internal.R.dimen.navigation_bar_height),
+                    UserHandle.USER_CURRENT);
 
             mNavigationBarHeight =
                     Settings.System.getIntForUser(mContext.getContentResolver(),

@@ -2911,6 +2911,13 @@ public final class Settings {
         public static final String PIE_CONTROLS = "pie_controls";
 
         /**
+         * Whether pie triggers on the left and right edge should be reduced if IME shows up.
+         * Default = 1 (enabled)
+         * @hide
+         */
+        public static final String PIE_IME_CONTROL = "pie_ime_control";
+
+        /**
          * Whether dynamic menu button is shown or not or dynamic (default)
          * @hide
          */
@@ -3279,6 +3286,12 @@ public final class Settings {
          * @hide
          */
         public static final String NAVIGATION_BAR_SHOW = "navigation_bar_show";
+        
+        /**
+         * Wether navigation bar in power menu is enabled or not
+         * @hide
+         */
+        public static final String POWER_MENU_NAV_BAR_ENABLED = "power_menu_nav_bar_enabled";
 
 	    /**
          * Navigation bar height when it is on protrait
