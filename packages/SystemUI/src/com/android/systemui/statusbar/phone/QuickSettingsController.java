@@ -299,7 +299,7 @@ public class QuickSettingsController {
                 }
             } else if (tile.equals(TILE_COMPASS)) {
                 qs = new CompassTile(mContext, this);
-	        } else if (tile.equals(TILE_POWER)) {
+            } else if (tile.equals(TILE_POWER)) {
                 qs = new PowerMenuTile(mContext, this);     
             }
 
