@@ -4324,6 +4324,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CUSTOM_HEADER = "status_bar_custom_header";
 
+        /**
+         * Custom Recents: Show topmost task
+         *
+         * @hide
+         */
+        public static final String CUSTOM_RECENT_SHOW_TOPMOST = "custom_recent_show_topmost";
 
         /**
          * Enables/disables lockscreen notifications
