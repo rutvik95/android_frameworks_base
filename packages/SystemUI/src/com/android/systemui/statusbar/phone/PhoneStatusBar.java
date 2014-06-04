@@ -1672,7 +1672,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             ((ImageView)mClearButton).setImageDrawable(null);
             ((ImageView)mClearButton).setImageResource(R.drawable.ic_notify_clear);
         }
-
+        
+        if (mHaloButton != null) {
+            mHaloButton.setImageDrawable(null);
+            mHaloButton.setImageResource(mHaloActive
+                            ? R.drawable.ic_notify_halo_pressed
+                            : R.drawable.ic_notify_halo_normal);        
+        }
+        
         if (mSettingsButton != null) {
             // Force asset reloading
             mSettingsButton.setImageDrawable(null);
