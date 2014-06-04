@@ -80,6 +80,10 @@ import android.util.EventLog;
 import android.util.Slog;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
+<<<<<<< HEAD
+=======
+import android.view.WindowManagerGlobal;
+>>>>>>> 65e0528... Fixes
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
