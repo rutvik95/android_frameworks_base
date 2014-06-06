@@ -409,8 +409,8 @@ public class NotificationHelper {
     public boolean isSimPanelShowing() {
         int state = mTelephonyManager.getSimState();
         return state == TelephonyManager.SIM_STATE_PIN_REQUIRED
-                | state == TelephonyManager.SIM_STATE_PUK_REQUIRED
-                | state == TelephonyManager.SIM_STATE_NETWORK_LOCKED;
+                 | state == TelephonyManager.SIM_STATE_PUK_REQUIRED
+                 | state == TelephonyManager.SIM_STATE_NETWORK_LOCKED;
     }
 
     public boolean isUserOnLauncher() {
