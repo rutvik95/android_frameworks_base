@@ -65,4 +65,7 @@
     <string name="quick_settings_reminder_help_title">Touch:</string>
     <string name="quick_settings_reminder_help_message">Touch here to set a reminder. Long-press to clear the current reminder.</string>
     <string name="quick_settings_reminder_noti_dismiss">Dismiss</string>
+
+    <!-- Title shown when app provides no interface -->
+    <string name="status_bar_floating_no_interface">App provides no interface</string>
 </resources>
