@@ -3673,6 +3673,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     private void recentsLongPress() {
+		ContentResolver resolver = mContext.getContentResolver();
         int navbarRecentLongPress = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.NAVBAR_RECENT_LONG_PRESS, 0, mCurrentUserId);
         switch(navbarRecentLongPress) {
