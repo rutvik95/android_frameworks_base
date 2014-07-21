@@ -290,6 +290,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private TextView mSubsLabel;
     private boolean mCarrierLabelVisible = false;
     private int mCarrierLabelHeight;
+    private TextView mWifiLabel;
+    private View mWifiView;
+    private View mCarrierAndWifiView;
+    private boolean mCarrierAndWifiViewVisible = false;
+    private int mCarrierAndWifiViewHeight;
     private TextView mEmergencyCallLabel;
     private int mNotificationHeaderHeight;
 
@@ -1174,7 +1179,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         @Override
                         public void onLayoutChange(View v, int left, int top, int right, int bottom,
                             int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                            updateCarrierLabelVisibility(false);
+                            updateCarrierAndWifiLabelVisibility(false);
                         }});
                 }
             }
@@ -1198,7 +1203,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mPile.setOnSizeChangedListener(new OnSizeChangedListener() {
                     @Override
                     public void onSizeChanged(View view, int w, int h, int oldw, int oldh) {
-                        updateCarrierLabelVisibility(false);
+                        updateCarrierAndWifiLabelVisibility(false);
                     }
                 });
             }
@@ -2451,7 +2456,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mClearButton.setVisibility(View.GONE);
 
         mAnimatingFlip = true;
-        updateCarrierLabelVisibility(false);
+        updateCarrierAndWifiLabelVisibility(false);
     }
 
     public void flipToSettings() {
@@ -2530,7 +2535,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mAnimatingFlip = false;
             }
         }, FLIP_DURATION - 150);
-        updateCarrierLabelVisibility(false);
+        updateCarrierAndWifiLabelVisibility(false);
         mNotificationPanelIsOpen = false;
         mQSPanelIsOpen = true;
     }
