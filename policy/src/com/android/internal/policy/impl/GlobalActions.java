@@ -78,8 +78,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.internal.util.nameless.NamelessActions;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -430,34 +428,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
         }
 
-        // next: On-The-Go, if enabled
-        boolean showOnTheGo = Settings.System.getBoolean(cr,
-                Settings.System.POWER_MENU_ONTHEGO_ENABLED, false);
-        if (showOnTheGo) {
-            mItems.add(
-                    new SinglePressAction(R.drawable.ic_lock_onthego,
-                            R.string.global_action_onthego) {
-
-                        public void onPress() {
-                            NamelessActions.processAction(mContext,
-                                    NamelessActions.ACTION_ONTHEGO_TOGGLE);
-                        }
-
-                        public boolean onLongPress() {
-                            return false;
-                        }
-
-                        public boolean showDuringKeyguard() {
-                            return true;
-                        }
-
-                        public boolean showBeforeProvisioning() {
-                            return true;
-                        }
-                    }
-            );
-        }
-
         // next: expanded desktop toggle
         // only shown if enabled and expanded desktop is enabled, disabled by default
         boolean showExpandedDesktop =
@@ -733,15 +703,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mHandler.postDelayed(mScreenshotTimeout, 10000);
             }
         }
-    }
-
-    private void startOnTheGo() {
-        final ComponentName cn = new ComponentName("com.android.systemui",
-                "com.android.systemui.nameless.onthego.OnTheGoService");
-        final Intent startIntent = new Intent();
-        startIntent.setComponent(cn);
-        startIntent.setAction("start");
-        mContext.startService(startIntent);
     }
 
     private void prepareDialog() {
