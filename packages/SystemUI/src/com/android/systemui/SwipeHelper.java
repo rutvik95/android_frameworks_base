@@ -279,11 +279,11 @@ public class SwipeHelper implements Gefingerpoken {
                 mDragging = false;
                 mCurrView = null;
                 mCurrAnimView = null;
-                //mLongPressSent = false;
+                mLongPressSent = false;
                 removeLongPressCallback();
                 break;
         }
-        return mDragging || mLongPressSent;
+        return mDragging;
     }
 
     /**
