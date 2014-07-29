@@ -578,7 +578,7 @@ public final class PowerManagerService extends IPowerManager.Stub
                     Settings.System.WAKELOCK_BLOCKING_ENABLED),
                     false, mSettingsObserver, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.WAKELOCK_BLOCKING_LIST),
+                    Settings.System.WAKELOCK_BLOCKING_LIST),          
                     false, mSettingsObserver, UserHandle.USER_ALL);
 
             // Go.

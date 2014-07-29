@@ -27,6 +27,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -89,6 +90,9 @@ import android.widget.Toast;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.statusbar.StatusBarIconList;
+import com.android.internal.util.cm.SpamFilter;
+import com.android.internal.util.cm.SpamFilter.SpamContract.NotificationTable;
+import com.android.internal.util.cm.SpamFilter.SpamContract.PackageTable;
 import com.android.internal.widget.SizeAdaptiveLayout;
 import com.android.systemui.R;
 import com.android.systemui.RecentsComponent;
@@ -99,6 +103,8 @@ import com.android.systemui.statusbar.notification.Hover;
 import com.android.systemui.statusbar.notification.HoverCling;
 import com.android.systemui.statusbar.notification.NotificationHelper;
 import com.android.systemui.statusbar.phone.Ticker;
+import com.android.systemui.cm.SpamMessageProvider;
+import com.android.systemui.statusbar.NotificationData.Entry;
 import com.android.systemui.statusbar.phone.KeyguardTouchDelegate;
 import com.android.systemui.statusbar.phone.NavigationBarOverlay;
 import com.android.systemui.statusbar.phone.PhoneStatusBar;
@@ -149,6 +155,12 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     public static final int HOVER_DISABLED = 0;
     public static final int HOVER_ENABLED = 1;
+    
+    private static final Uri SPAM_MESSAGE_URI = new Uri.Builder()
+            .scheme(ContentResolver.SCHEME_CONTENT)
+            .authority(SpamMessageProvider.AUTHORITY)
+            .appendPath("message")
+            .build();
 
     protected CommandQueue mCommandQueue;
     protected INotificationManager mNotificationManager;
@@ -797,10 +809,10 @@ public abstract class BaseStatusBar extends SystemUI implements
         return new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                NotificationData.Entry  entry = (NotificationData.Entry) v.getTag();
+                final NotificationData.Entry entry = (Entry) v.getTag();
+                final StatusBarNotification sbNotification = entry.notification;
                 StatusBarNotification sbn = entry.notification;
-
-                final String packageNameF = sbn.getPackageName();
+                final String packageNameF = sbNotification.getPackageName();
                 final PendingIntent contentIntent = sbn.getNotification().contentIntent;
                 boolean expanded = Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.EXPANDED_DESKTOP_STATE, 0) == 1;
@@ -870,7 +882,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                             am.clearApplicationUserData(packageNameF,
                                     new FakeClearUserDataObserver());
                         } else if (item.getItemId() == R.id.notification_floating_item) {
-
                             boolean allowed = true;
                             try {
                                 // preloaded apps are added to the blacklist array when is recreated, handled in the notification manager
@@ -887,6 +898,14 @@ public abstract class BaseStatusBar extends SystemUI implements
                                 animateCollapsePanels(CommandQueue.FLAG_EXCLUDE_NONE);
                                 Toast.makeText(mContext, text, duration).show();
                             }
+                        } else if (item.getItemId() == R.id.notification_spam_item) {
+                            ContentValues values = new ContentValues();
+                            String message = SpamFilter.getNotificationContent(
+                                    sbNotification.getNotification());
+                            values.put(NotificationTable.MESSAGE_TEXT, message);
+                            values.put(PackageTable.PACKAGE_NAME, packageNameF);
+                            mContext.getContentResolver().insert(SPAM_MESSAGE_URI, values);
+                            removeNotification(entry.key);
                         } else {
                             return false;
                         }
