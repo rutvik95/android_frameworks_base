@@ -3447,6 +3447,13 @@ public final class Settings {
         public static final int STATUS_BAR_COLLAPSE_IF_NO_CLEARABLE = 2;
 
         /**
+         * Whether incomming call UI stays in background and shows as heads up notification
+         *
+         * @hide
+         */
+        public static final String CALL_UI_AS_HEADS_UP = "call_ui_as_heads_up";
+
+        /**
          * Whether to use the custom quick unlock screen control
          * @hide
          */
@@ -4292,7 +4299,36 @@ public final class Settings {
         public static final String STATUS_BAR_NOTIFICATION_SWIPE_FLOATING = "status_bar_notification_swipe_floating";
          
         /**
-         * User favorite tasks for recent panel.
+         * Whether heads up notification is expanded by default (default = disabled)
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_EXPANDED = "heads_up_expanded";
+
+        /**
+         * Time where heads up is disabled by user interaction (default = 5 minutes)
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
+
+        /**
+         * Time how long heads up will show till it is automatically hidden.
+         * If time = 0 notifications stays till the user interacts with it.
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_NOTIFCATION_DECAY = "heads_up_notifcation_decay";
+
+        /**
+         * Whether notification updates from background notifications should be shown as heads up.
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_SHOW_UPDATE = "heads_up_show_update";
+
+        /**
+		 * User favorite tasks for recent panel.
          * @hide
          */
         public static final String RECENT_PANEL_FAVORITES = "recent_panel_favorites";

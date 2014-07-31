@@ -123,4 +123,9 @@
     <string name="network_3G_auto">2G/3G Auto</string>
     <string name="network_3G">2G/3G Pref</string>
     <string name="network_2G">2G Only</string>     
+ 
+    <!-- Heads up -->
+    <string name="status_bar_notification_heads_up_enable_title">Enable heads up</string>
+    <string name="status_bar_notification_heads_up_disable_title">Disable heads up</string>
+    <string name="heads_up_snooze_message">Heads up is disabled for <xliff:g id="number">%d</xliff:g> minutes.</string>
 </resources>
