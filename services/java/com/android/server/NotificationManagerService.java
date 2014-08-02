@@ -1524,9 +1524,8 @@ public class NotificationManagerService extends INotificationManager.Stub
             if (uri == null || ENABLED_NOTIFICATION_LISTENERS_URI.equals(uri)) {
                 rebindListenerServices();
             }
-
             mBatterySaverDisableLED = Settings.Global.getInt(resolver,
-                    Settings.Global.BATTERY_SAVER_LED_DISABLE, 0) != 0;
+                    Settings.Global.BATTERY_SAVER_LED_DISABLE, 0) != 0;            
         }
     }
 
@@ -2645,10 +2644,23 @@ public class NotificationManagerService extends INotificationManager.Stub
             }
         }
 
-        // Don't flash while we are in a call, screen is
-        // on or we are in quiet hours with light dimmed
-        if (mBatterySaverDisableLED || mLedNotification == null || mInCall || mScreenOn
-                || (QuietHoursHelper.inQuietHours(mContext, Settings.System.QUIET_HOURS_DIM))) {
+        // Don't flash while we are in a call, screen is on or we are
+        // in quiet hours with light dimmed
+        // (unless Notification has EXTRA_FORCE_SHOW_LGHTS)
+        final boolean enableLed;
+        if (mLedNotification == null || mBatterySaverDisableLED) {
+            enableLed = false;
+        } else if (isLedNotificationForcedOn(mLedNotification)) {
+            enableLed = true;
+        } else if (mInCall || (mScreenOn && (!mDreaming || !mScreenOnNotificationLed))) {
+            enableLed = false;
+        } else if (QuietHoursUtils.inQuietHours(mContext, Settings.System.QUIET_HOURS_DIM)) {
+            enableLed = false;
+        } else {
+            enableLed = true;
+        }
+
+        if (!enableLed) {
             mNotificationLight.turnOff();
         } else if (mNotificationPulseEnabled) {
             final Notification ledno = mLedNotification.sbn.getNotification();
