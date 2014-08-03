@@ -154,7 +154,7 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     public static final int HOVER_DISABLED = 0;
     public static final int HOVER_ENABLED = 1;
-    
+
     private static final Uri SPAM_MESSAGE_URI = new Uri.Builder()
             .scheme(ContentResolver.SCHEME_CONTENT)
             .authority(SpamMessageProvider.AUTHORITY)
