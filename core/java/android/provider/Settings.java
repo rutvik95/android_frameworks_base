@@ -2976,13 +2976,6 @@ public final class Settings {
          */
         public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
 
-		/**
-         * Should the non-intrsive incall ui be used
-         *
-         * @hide
-         */
-        public static final String NON_INTRUSIVE_INCALL = "non_intrusive_incall";
-
         /**
          * Quick Settings Panel Dynamic Tiles
          *
@@ -3197,7 +3190,7 @@ public final class Settings {
         * @hide
         */
         public static final String NOTIFICATION_BACKGROUND_ALPHA = "notification_background_alpha";
-  
+
         /**
          * Color of QuickSettings tiles text
          * @hide

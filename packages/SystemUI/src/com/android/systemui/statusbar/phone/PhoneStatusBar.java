@@ -488,6 +488,19 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_SHOW_UPDATE), false, this,
                     UserHandle.USER_ALL);
+            // Heads up
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_EXPANDED), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_SNOOZE_TIME), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_NOTIFCATION_DECAY), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_SHOW_UPDATE), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
             update();
         }    
@@ -3857,15 +3870,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void recreateStatusBar() {
         mRecreating = true;
-
-        if (mHeadsUpNotificationView != null) {
-            removeHeadsUpView();
-            mHeadsUpNotificationView = null;
-        }
-
+        removeHeadsUpView();
         mStatusBarContainer.removeAllViews();
         mStatusBarContainer.clearDisappearingChildren();
-        removeHeadsUpView();
 
         // extract icons from the soon-to-be recreated viewgroup.
         int nIcons = mStatusIcons.getChildCount();
