@@ -76,6 +76,7 @@ public class ExpandHelper implements Gefingerpoken, OnClickListener {
     private int mExpansionStyle = NONE;
     private boolean mWatchingForPull;
     private boolean mHasPopped;
+    private boolean mForcedOneFinger;
     private View mEventSource;
     private View mCurrView;
     private View mCurrViewTopGlow;
@@ -304,6 +305,10 @@ public class ExpandHelper implements Gefingerpoken, OnClickListener {
         mScrollView = scrollView;
     }
 
+    public void setForceOneFinger(boolean forceOneFinger) {
+        mForcedOneFinger = forceOneFinger;
+    }
+    
     private float calculateGlow(float target, float actual) {
         // glow if overscale
         if (DEBUG_GLOW) Log.d(TAG, "target: " + target + " actual: " + actual);
@@ -406,7 +411,8 @@ public class ExpandHelper implements Gefingerpoken, OnClickListener {
             }
 
             case MotionEvent.ACTION_DOWN:
-                mWatchingForPull = isInside(mScrollView, x, y);
+                final boolean inside = isInside(mScrollView, x, y);
+                mWatchingForPull = (inside || mForcedOneFinger);
                 mLastMotionY = y;
                 if (inside) {
                     mInitialTouchY = y;
@@ -526,7 +532,11 @@ public class ExpandHelper implements Gefingerpoken, OnClickListener {
             v.getParent().requestDisallowInterceptTouchEvent(true);
         }
     }
-
+	
+	public float getNaturalHeight() {
+        return mNaturalHeight;
+    }
+	
     private void finishExpanding(boolean force) {
         if (!mExpanding) return;
 

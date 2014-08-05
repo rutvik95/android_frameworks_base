@@ -172,8 +172,6 @@ public class TvStatusBar extends BaseStatusBar {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public boolean panelsEnabled() {
         return false;
     }
@@ -192,7 +190,6 @@ public class TvStatusBar extends BaseStatusBar {
     }
 
     @Override
->>>>>>> 0da7e0e... Frameworks: Heads up meets SlimKat....SlimKat meets Google IO [1/4]
     public void animateExpandSettingsPanel(boolean flip) {
 	}   
 

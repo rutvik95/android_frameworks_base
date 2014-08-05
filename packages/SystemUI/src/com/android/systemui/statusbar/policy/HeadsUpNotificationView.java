@@ -266,19 +266,6 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
     @Override
     public void onChildTriggered(View v) {
     }
-    
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
-        switch (event.getKeyCode()) {
-            case KeyEvent.KEYCODE_BACK:
-                if (!down && !event.isCanceled()) {
-                    mBar.hideHeadsUp();
-                }
-                return true;
-        }
-        return super.dispatchKeyEvent(event);
-    }
 
     @Override
     public void onBeginDrag(View v) {

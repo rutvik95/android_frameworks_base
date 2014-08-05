@@ -169,7 +169,7 @@ public class NotificationHelper {
             boolean makeFloating = floating
                     && !isNotificationBlacklisted(entry.notification.getPackageName())
                     // if the notification is from the foreground app, don't open in floating mode
-                    && !entry.notification.getPackageName().equals(getForegroundPackageName())
+                    && !entry.notification.getPackageName().equals(getForegroundPackageName());
             intent.makeFloating(makeFloating);
         }
         return intent;

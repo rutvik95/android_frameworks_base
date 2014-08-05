@@ -2985,13 +2985,6 @@ public final class Settings {
          */
         public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
 
-		/**
-         * Should the non-intrsive incall ui be used
-         *
-         * @hide
-         */
-        public static final String NON_INTRUSIVE_INCALL = "non_intrusive_incall";
-
         /**
          * Quick Settings Panel Dynamic Tiles
          *
@@ -3267,7 +3260,16 @@ public final class Settings {
         public static final String PIE_BUTTON_PRESSED_COLOR = "pie_button_pressed_color";
 
         /**
-         * Pie button long press color
+         * Whether incomming call UI stays in background
+         *
+         * @hide
+         */
+        public static final String CALL_UI_IN_BACKGROUND = "call_ui_in_background";
+
+        /**
+         * Boolean value whether to link ringtone and notification volumes
+         *
+		 * Pie button long press color
          * @hide
          */
         public static final String PIE_BUTTON_LONG_PRESSED_COLOR = "pie_button_long_pressed_color";

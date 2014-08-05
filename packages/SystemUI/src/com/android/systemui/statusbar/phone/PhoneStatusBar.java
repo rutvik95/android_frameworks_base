@@ -498,6 +498,19 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_SHOW_UPDATE), false, this,
                     UserHandle.USER_ALL);
+            // Heads up
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_EXPANDED), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_SNOOZE_TIME), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_NOTIFCATION_DECAY), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_SHOW_UPDATE), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
             update();
         }    
@@ -541,11 +554,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.EXPANDED_DESKTOP_STATE))) {
                 mNavigationBarOverlay.setIsExpanded(isExpanded());
-<<<<<<< HEAD
-=======
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.NAVIGATION_BAR_SHOW))) {
-                mNavigationBarOverlay.setIsExpanded(noNavBar());
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_EXPANDED))) {
                     mHeadsUpExpandedByDefault = Settings.System.getIntForUser(
@@ -577,7 +585,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                             mContext.getContentResolver(),
                             Settings.System.HEADS_UP_SHOW_UPDATE, 0,
                             UserHandle.USER_CURRENT) == 1;
->>>>>>> 0da7e0e... Frameworks: Heads up meets SlimKat....SlimKat meets Google IO [1/4]
             }
             updateSettings();
             update();
@@ -3974,20 +3981,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void setHeadsUpVisibility(boolean vis) {
         if (DEBUG) Log.v(TAG, (vis ? "showing" : "hiding") + " heads up window");
-<<<<<<< HEAD
-        if (mHeadsUpNotificationView != null && mHeadsUpNotificationView.isAttachedToWindow()) {
-            mHeadsUpNotificationView.setVisibility(vis ? View.VISIBLE : View.GONE);
-            if (!vis) {
-                if (DEBUG) Log.d(TAG, "setting heads up entry to null");
-                mInterruptingNotificationEntry = null;
-            }
-=======
         mHeadsUpNotificationView.setVisibility(vis ? View.VISIBLE : View.GONE);
         if (!vis) {
             if (DEBUG) Log.d(TAG, "setting heads up entry to null");
             mInterruptingNotificationEntry = null;
             mHeadsUpPackageName = null;
->>>>>>> 0da7e0e... Frameworks: Heads up meets SlimKat....SlimKat meets Google IO [1/4]
         }
     }
 
@@ -4033,15 +4031,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void recreateStatusBar() {
         mRecreating = true;
-
         removeHeadsUpView();
-
         mStatusBarContainer.removeAllViews();
-<<<<<<< HEAD
         mStatusBarContainer.clearDisappearingChildren();
-=======
         removeHeadsUpView();
->>>>>>> 0da7e0e... Frameworks: Heads up meets SlimKat....SlimKat meets Google IO [1/4]
 
         // extract icons from the soon-to-be recreated viewgroup.
         int nIcons = mStatusIcons.getChildCount();
