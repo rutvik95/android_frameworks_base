@@ -1483,7 +1483,7 @@ public abstract class BaseStatusBar extends SystemUI implements
             }
             if (mPile.launchNextNotificationFloating()) {
                 if (mIntent != null) {
-                    launchFloating(mIntent);
+                    launchFloating(mPendingIntent);
                 }
             } else if (mPendingIntent != null) {
                 int[] pos = new int[2];

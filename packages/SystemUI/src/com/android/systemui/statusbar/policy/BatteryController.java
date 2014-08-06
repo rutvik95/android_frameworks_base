@@ -78,6 +78,10 @@ public class BatteryController extends BroadcastReceiver {
         mChangeCallbacksHalo.remove(cb_Halo);
     }  
 
+    public void unregisterController(Context context) {	
+        context.unregisterReceiver(this);
+    }
+
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
         if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
@@ -98,10 +102,6 @@ public class BatteryController extends BroadcastReceiver {
             }
         }
     }
-
-    public void unregisterController(Context context) {
-        context.unregisterReceiver(this);
-    }    
 
     public void onBatteryMeterModeChanged(BatteryMeterMode mode) {
         for (BatteryStateChangeCallback cb : mChangeCallbacks) {

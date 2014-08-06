@@ -87,6 +87,10 @@ public class PeekLayout extends LinearLayout implements SwipeHelper.Callback {
                 mPeek.getNotificationView().getTag();
         return n.isClearable();
     }
+    
+    @Override   
+    public void onChildTriggered(View v) {
+    }    
 
     @Override
     public void onChildDismissed(View v) {
