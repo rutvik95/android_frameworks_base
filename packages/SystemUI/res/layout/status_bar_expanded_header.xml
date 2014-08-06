@@ -40,6 +40,7 @@
             android:paddingEnd="4dp"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
+            android:background="@drawable/ic_notify_button_bg"
             android:gravity="center_vertical"
             android:clickable="true"
             />
@@ -49,6 +50,7 @@
             android:layout_height="match_parent"
             android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Date"
             android:layout_toEndOf="@id/clock"
+            android:background="@drawable/ic_notify_button_bg"
             android:gravity="center_vertical"
             android:paddingStart="4dp"
             android:paddingEnd="8dp"
@@ -57,6 +59,7 @@
 
     <ImageView
         android:id="@+id/spacer"
+        android:background="@drawable/ic_notify_button_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -96,6 +99,7 @@
             android:layout_marginLeft="5dp"
             android:scaleType="center"
             android:src="@drawable/ic_notify_clear"
+            android:background="@drawable/ic_notify_button_bg"
             android:contentDescription="@string/accessibility_clear_all"
             />
         
@@ -104,6 +108,7 @@
             android:layout_height="50dp"
             android:scaleType="center"
             android:src="@drawable/ic_notify_hover_normal"
+            android:background="@drawable/ic_notify_button_bg"
             android:contentDescription="@string/accessibility_clear_all"
             />
     </FrameLayout>
@@ -118,6 +123,7 @@
             android:layout_height="50dp"
             android:scaleType="center"
             android:src="@drawable/ic_notify_settings"
+            android:background="@drawable/ic_notify_button_bg"
             android:contentDescription="@string/accessibility_desc_quick_settings"
             />
         <ImageView android:id="@+id/notification_button"
@@ -125,6 +131,7 @@
             android:layout_height="50dp"
             android:scaleType="center"
             android:src="@drawable/ic_notifications"
+            android:background="@drawable/ic_notify_button_bg"
             android:visibility="gone"
             android:contentDescription="@string/accessibility_notifications_button"
             />
