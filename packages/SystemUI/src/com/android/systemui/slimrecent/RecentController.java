@@ -529,7 +529,7 @@ public class RecentController implements RecentPanelView.OnExitListener,
                     Settings.System.RECENT_PANEL_EXPANDED_MODE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.CUSTOM_RECENT_SHOW_TOPMOST),
+                    Settings.System.RECENT_PANEL_SHOW_TOPMOST),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RECENT_PANEL_BG_COLOR),
@@ -575,7 +575,7 @@ public class RecentController implements RecentPanelView.OnExitListener,
                     mRecentPanelView.EXPANDED_MODE_AUTO,
                     UserHandle.USER_CURRENT));
                 mRecentPanelView.setShowTopTask(Settings.System.getIntForUser(
-                    resolver, Settings.System.CUSTOM_RECENT_SHOW_TOPMOST, 0,
+                    resolver, Settings.System.RECENT_PANEL_SHOW_TOPMOST, 0,
                     UserHandle.USER_CURRENT) == 1);
             }
 

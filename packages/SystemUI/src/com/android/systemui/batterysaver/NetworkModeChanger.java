@@ -65,7 +65,7 @@ public class NetworkModeChanger extends ModeChanger {
             case Phone.NT_MODE_WCDMA_PREF:
                 return r.getString(R.string.network_3G);
         }
-        return r.getString(R.string.quick_settings_network_unknown);
+        return r.getString(R.string.network_unknown);
     }
 
     private void setMode(int network) {

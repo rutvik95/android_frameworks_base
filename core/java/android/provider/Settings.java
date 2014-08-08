@@ -4386,7 +4386,7 @@ public final class Settings {
          *
          * @hide
          */
-        public static final String CUSTOM_RECENT_SHOW_TOPMOST = "custom_recent_show_topmost";
+        public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_show_topmost";
 
         /**
          * Enables/disables lockscreen notifications

@@ -37,6 +37,7 @@ public class GPSTile extends QuickSettingsTile implements LocationSettingsChange
     private LocationController mLocationController;
     private boolean mLocationEnabled;
     private int mLocationMode;
+    private int mCurrentMode;   
 
     public GPSTile(Context context, final QuickSettingsController qsc) {
         super(context, qsc);
