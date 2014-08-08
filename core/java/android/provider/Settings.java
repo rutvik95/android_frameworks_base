@@ -4243,18 +4243,17 @@ public final class Settings {
         public static final String RECENT_PANEL_EXPANDED_MODE = "recent_panel_expanded_mode";
 
         /**
-         * Recent panel: Show topmost task
-         *
-         * @hide
-         */
-        public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_panel_show_topmost";
-
-        /**
          * Size of recent panel view in percent (default = 100).
          * @hide
          */
         public static final String RECENT_PANEL_SCALE_FACTOR = "recent_panel_scale_factor";
 
+        /**
+         * Custom Recents: Show topmost task
+         *
+         * @hide
+         */
+        public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_show_topmost";
 
         /**
          * Enables/disables lockscreen notifications

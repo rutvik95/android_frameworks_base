@@ -51,6 +51,9 @@ import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.NetworkController.NetworkSignalChangedCallback;
 import com.android.internal.widget.LockPatternUtils;
 
+import com.android.systemui.BatteryMeterView;
+import com.android.systemui.BatteryMeterView.BatteryMeterMode;
+
 public class BatterySaverService extends Service implements BluetoothConnectionChangeCallback,
            NetworkSignalChangedCallback, BatteryStateChangeCallback, LocationSettingsChangeCallback {
 
@@ -513,9 +516,15 @@ public class BatterySaverService extends Service implements BluetoothConnectionC
             }
         }
     }
+    
+    @Override
+    public void onBatteryMeterModeChanged(BatteryMeterMode mode) {/*Ignore*/}
 
     @Override
-    public void onBatteryLevelChanged(int level, boolean pluggedIn) {
+    public void onBatteryMeterShowPercent(boolean showPercent) {/*Ignore*/}
+
+    @Override
+    public void onBatteryLevelChanged(boolean present, int level, boolean pluggedIn, int status) {
         if (!mBatterySaverEnabled) return;
         if (mSmartBatteryEnabled) {
             if (!pluggedIn && (level < mLowBatteryLevel)) {
@@ -528,7 +537,7 @@ public class BatterySaverService extends Service implements BluetoothConnectionC
                 mBatteryLowEvent = false;
             }
         }
-    }
+    }    
 
     @Override
     public void onBluetoothConnectionChange(boolean on, boolean connected) {
