@@ -130,7 +130,6 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
         int minHeight = getResources().getDimensionPixelSize(R.dimen.notification_row_min_height);
         int maxHeight = getResources().getDimensionPixelSize(R.dimen.notification_row_max_height);
         mExpandHelper = new ExpandHelper(mContext, this, minHeight, maxHeight);
-        mExpandHelper.setForceOneFinger(true);
 
         mContentHolder = (ViewGroup) findViewById(R.id.content_holder);
         mContentSlider = (ViewGroup) findViewById(R.id.content_slider);
@@ -159,16 +158,10 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
         if (System.currentTimeMillis() < mStartTouchTime) {
             return false;
         }
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_OUTSIDE:
-                mBar.hideHeadsUp();
-                return true;
-            default:
-                mBar.resetHeadsUpDecayTimer();
-                return mSwipeHelper.onTouchEvent(ev)
-                        || mExpandHelper.onTouchEvent(ev)
-                        || super.onTouchEvent(ev);
-        }
+        mBar.resetHeadsUpDecayTimer();
+        return mSwipeHelper.onTouchEvent(ev)
+                || mExpandHelper.onTouchEvent(ev)
+                || super.onTouchEvent(ev);
     }
 
     @Override
@@ -239,8 +232,6 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
 
     @Override
     public void onBeginDrag(View v) {
-        // We need to prevent any surrounding View from intercepting us now.
-        requestDisallowInterceptTouchEvent(true);
     }
 
     @Override
