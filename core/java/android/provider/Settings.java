@@ -3077,11 +3077,10 @@ public final class Settings {
                 "status_bar_battery_show_percent";
 
         /**
-         * Whether to hide the clock, show it in the default
-         * position or show it in the center
+         * Whether to show the clock in status bar
+         * of the stock battery icon
          * 0: don't show the clock
-         * 1: show the clock in the default position
-         * 2: show the clock in the center
+         * 1: show the clock
          * default: 1
          * @hide
          */

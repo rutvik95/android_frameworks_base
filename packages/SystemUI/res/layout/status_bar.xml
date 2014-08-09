@@ -118,7 +118,7 @@
                     android:visibility="gone"
                     />
             </LinearLayout>
-
+    
             <com.android.systemui.statusbar.policy.Clock
                 android:id="@+id/clock"
                 android:textAppearance="@style/TextAppearance.StatusBar.Clock"
@@ -131,17 +131,6 @@
                 />
         </LinearLayout>
     </LinearLayout>
-
-    <com.android.systemui.statusbar.policy.Clock
-        android:id="@+id/center_clock"
-        android:textAppearance="@style/TextAppearance.StatusBar.Clock"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:singleLine="true"
-        android:visibility="gone"
-        />
 
     <LinearLayout android:id="@+id/ticker"
         android:layout_width="match_parent"
