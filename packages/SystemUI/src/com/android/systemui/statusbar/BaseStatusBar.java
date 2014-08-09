@@ -187,7 +187,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     private ArrayList<String> mDndList;
     private ArrayList<String> mBlacklist;
 
-    protected int mExpandedDesktopStyle = 0;
+    private int mExpandedDesktopStyle = 0;
 
     public IStatusBarService getStatusBarService() {
         return mBarService;
