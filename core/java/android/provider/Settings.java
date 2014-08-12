@@ -3059,6 +3059,13 @@ public final class Settings {
         public static final String QS_QUICK_ACCESS = "qs_quick_access";
 
         /**
+         * Quick Settings Quick access ribbon - size
+         *
+         * @hide
+         */
+        public static final String QS_QUICK_ACCESS_SIZE = "qs_quick_access_size";
+
+        /**
          * Quick Settings Quick access ribbon - linked layout
          *
          * @hide
@@ -3444,11 +3451,17 @@ public final class Settings {
          */
         public static final String STATUS_BAR_NETWORK_COLOR = "status_bar_network_usage_color"; 
 
-	/**
+	    /**
          * Network stats hide if there's no traffic
          * @hide
          */
         public static final String STATUS_BAR_NETWORK_HIDE = "status_bar_network_hide";  
+        
+        /**
+         * Whether to scramble a pin unlock layout
+         * @hide
+         */
+        public static final String LOCKSCREEN_PIN_SCRAMBLE_LAYOUT = "lockscreen_scramble_pin_layout";        
 
         /**
          * Reminder alert on / off
