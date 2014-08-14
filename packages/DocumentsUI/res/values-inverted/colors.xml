@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 The Android Open Source Project
+<!-- Copyright (C) 2013 SlimRoms Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,16 +15,13 @@
 -->
 
 <resources>
-    <color name="chip">#ddd</color>
-    <color name="item_root_pressed">#33cccccc</color>
-    <color name="item_root_focused">#66cccccc</color>
-    <color name="drawer_background">#fff</color>
-    <color name="title_background">#ccc</color>
-    <color name="save_background">#ddd</color>
-    <color name="grid_item_background">#fff</color>
+    <color name="chip">#222</color>
+    <color name="item_root_pressed">#33333333</color>
+    <color name="item_root_focused">#66333333</color>
 
     <!-- background colors from layout -->
-    <color name="bg1">#fff</color>
-    <color name="bg2">#ddd</color>
-    <color name="bg3">#ccc</color>
+    <color name="bg1">#000</color>
+    <color name="bg2">#222</color>
+    <color name="bg3">#333</color>
+
 </resources>
