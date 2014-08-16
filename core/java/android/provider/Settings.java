@@ -3325,6 +3325,13 @@ public final class Settings {
         public static final String KEY_MENU_ENABLED = "key_menu_enabled";
 
         /**
+         * Whether incomming call UI stays in background
+         *
+         * @hide
+         */
+        public static final String CALL_UI_IN_BACKGROUND = "call_ui_in_background";
+
+        /**
          * Custom System Animations
          *
          * @hide
@@ -3586,18 +3593,6 @@ public final class Settings {
          */
         public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
 
-    	/**
-         * Whether to show the network status in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
- 
-        /**
-         * Frequency at which stats are updated, in milliseconds
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_frequency";
-
 	    /**
          * Network stats Color style
          * @hide
@@ -3850,18 +3845,6 @@ public final class Settings {
          */
         public static final String QUIET_HOURS_DIM = "quiet_hours_dim";
         
-        /**
-         * show clear all recents button
-         *  @hide
-         */
-        public static final String SHOW_CLEAR_RECENTS_BUTTON = "clear_recents_button";
-
-        /**
-         * location of the clear all rectents button
-         * @hide
-         */
-        public static final String CLEAR_RECENTS_BUTTON_LOCATION = "clear_recents_button_location";
-
         /**
          * whether which Ram Usage Bar mode is used on recent switcher
          * 0 = none, 1 = only app use, 2 = app and cache use, 3 = app, cache and system use
@@ -4305,27 +4288,6 @@ public final class Settings {
          * @hide
          */
         public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
-
-        /**  
-         * Enable Menu key
-         *
-         * @hide
-         */
-        public static final String KEY_MENU_ENABLED = "key_menu_enabled";
-
-        /**
-         * Enable Back key
-         *
-         * @hide
-         */
-        public static final String KEY_BACK_ENABLED = "key_back_enabled";
- 
-        /**
-         * Enable Home key
-         *
-         * @hide
-         */
-        public static final String KEY_HOME_ENABLED = "key_home_enabled";
 
         /**
          * Whether to unlock the screen with the home key.  The value is boolean (1 or 0).

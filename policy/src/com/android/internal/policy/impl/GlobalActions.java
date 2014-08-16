@@ -43,7 +43,6 @@ import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -95,8 +94,6 @@ import android.os.IBinder;
 import android.os.Messenger;
 import android.os.RemoteException;
 
-import com.android.internal.util.slim.ButtonsConstants;
-import com.android.internal.util.slim.SlimActions;
 
 /**
  * Helper to show the global actions dialog.  Each item is an {@link Action} that
@@ -120,19 +117,16 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
     private ArrayList<Action> mItems;
     private GlobalActionsDialog mDialog;
-    private Handler mObservHandler = new Handler();
 
     private Action mSilentModeAction;
     private ToggleAction mAirplaneModeOn;
     private ToggleAction mExpandDesktopModeOn;
-    private ToggleAction mNavBarModeOn;
 
     private MyAdapter mAdapter;
 
     private boolean mKeyguardLocked = false;
     private boolean mDeviceProvisioned = false;
     private ToggleAction.State mAirplaneState = ToggleAction.State.Off;
-    private ToggleAction.State mNavBarState = ToggleAction.State.Off;
     private boolean mIsWaitingForEcmExit = false;
     private boolean mHasTelephony;
     private boolean mHasVibrator;
@@ -269,29 +263,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
         };
         onExpandDesktopModeChanged();
-
-        mNavBarModeOn = new ToggleAction(
-                R.drawable.ic_lock_navbar_on,
-                R.drawable.ic_lock_navbar_off,
-                R.string.global_actions_nav_bar_mode,
-                R.string.global_actions_nav_bar_mode_on_status,
-                R.string.global_actions_nav_bar_mode_off_status) {
-
-            void onToggle(boolean on) {
-                SlimActions.processAction(
-                    mContext, ButtonsConstants.ACTION_NAVBAR, false);
-                //changeNavBarSetting(on);
-            }
-
-            public boolean showDuringKeyguard() {
-                return true;
-            }
-
-            public boolean showBeforeProvisioning() {
-                return false;
-            }
-        };
-        onNavBarModeChanged();
 
         mAirplaneModeOn = new ToggleAction(
                 R.drawable.ic_lock_airplane_mode,
@@ -465,7 +436,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 Settings.System.getIntForUser(cr,
                         Settings.System.EXPANDED_DESKTOP_STYLE, 0, UserHandle.USER_CURRENT) != 0
                 && Settings.System.getIntForUser(cr,
-                        Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 2, UserHandle.USER_CURRENT) == 1;
+                        Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
 
         if (showExpandedDesktop) {
             mItems.add(mExpandDesktopModeOn);
@@ -497,13 +468,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                         }
                     }
             );
-
-        // next: Nav Bar toggle
-        boolean showNavBar = Settings.System.getBoolean(cr,
-                Settings.System.POWER_MENU_NAV_BAR_ENABLED, false);
-
-        if (showNavBar) {
-            mItems.add(mNavBarModeOn);
         }
 
         // next: airplane mode
@@ -781,15 +745,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     }
 
     private void prepareDialog() {
-        // Global menu is showing. Notify EdgeGestureService.
-        IEdgeGestureService edgeGestureService = getEdgeGestureService();
-        try {
-            if (edgeGestureService != null) {
-                edgeGestureService.setOverwriteImeIsActive(true);
-            }
-        } catch (RemoteException e) {
-             mEdgeGestureService = null;
-        }
         refreshSilentMode();
         mAirplaneModeOn.updateState(mAirplaneState);
         mAdapter.notifyDataSetChanged();
@@ -802,13 +757,15 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             mContext.registerReceiver(mRingerModeReceiver, filter);
         }
 
-        if (mNavBarModeOn != null) {
-            mNavBarModeOn.updateState(mNavBarState);
+        // Global menu is showing. Notify EdgeGestureService.
+        IEdgeGestureService edgeGestureService = getEdgeGestureService();
+        try {
+            if (edgeGestureService != null) {
+                edgeGestureService.setOverwriteImeIsActive(true);
+            }
+        } catch (RemoteException e) {
+             mEdgeGestureService = null;
         }
-
-        // Start observing setting changes during
-        // dialog shows up
-        mSettingsObserver.observe();
     }
 
     private void refreshSilentMode() {
@@ -839,7 +796,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         } catch (RemoteException e) {
              mEdgeGestureService = null;
         }
-        mContext.getContentResolver().unregisterContentObserver(mSettingsObserver);
     }
 
     /** {@inheritDoc} */
@@ -1309,31 +1265,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
     };
 
-    private SettingsObserver mSettingsObserver = new SettingsObserver(new Handler());
-    private final class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.NAVIGATION_BAR_SHOW), false, this,
-                    UserHandle.USER_ALL);
-
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
-            if (uri.equals(Settings.System.getUriFor(
-                Settings.System.NAVIGATION_BAR_SHOW))) {
-                onNavBarModeChanged();
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
     PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
         @Override
         public void onServiceStateChanged(ServiceState serviceState) {
@@ -1409,19 +1340,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 Settings.System.EXPANDED_DESKTOP_STATE,
                 0, UserHandle.USER_CURRENT) == 1;
         mExpandDesktopModeOn.updateState(expandDesktopModeOn ? ToggleAction.State.On : ToggleAction.State.Off);
-    }
-
-    private void onNavBarModeChanged() {
-        boolean defaultValue = mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_showNavigationBar);
-        boolean navBarModeOn = Settings.System.getIntForUser(
-                mContext.getContentResolver(),
-                Settings.System.NAVIGATION_BAR_SHOW,
-                defaultValue ? 1 : 0, UserHandle.USER_CURRENT) == 1;
-        mNavBarState = navBarModeOn ? ToggleAction.State.On : ToggleAction.State.Off;
-        if (mNavBarModeOn != null) {
-            mNavBarModeOn.updateState(mNavBarState);
-        }
     }
 
     /**

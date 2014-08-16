@@ -1050,7 +1050,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         performAuditoryFeedbackForAccessibilityIfNeed();
                     }
                     sendCloseSystemWindows(SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS);
-                    showGlobalActionsDialog();
                 }
                 break;
             case LONG_PRESS_POWER_SHUT_OFF:
@@ -1126,7 +1125,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return mKeyguardManager;
     }
-
+	
+    void showGlobalActionsDialog() {
+        showGlobalActionsDialog(false);
+    }
+    
     void showGlobalActionsDialog(boolean showRebootMenu) { 
         if (mGlobalActions == null) {
             mGlobalActions = new GlobalActions(mContext, mWindowManagerFuncs);
@@ -1446,9 +1449,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void updateKeyAssignments() {
         int activeHardwareKeys = mDeviceHardwareKeys;
 
-        if (mDevForceNavbar) {
-            activeHardwareKeys = 0;
-        }
         final boolean hasMenu = (activeHardwareKeys & KEY_MASK_MENU) != 0;
         final boolean hasHome = (activeHardwareKeys & KEY_MASK_HOME) != 0;
         final boolean hasAssist = (activeHardwareKeys & KEY_MASK_ASSIST) != 0;

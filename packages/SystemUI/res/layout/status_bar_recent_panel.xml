@@ -133,6 +133,5 @@
                     android:src="@drawable/ic_notify_clear" />
 
         </FrameLayout>
-
-    </LinearLayout>
+      </FrameLayout>
 </com.android.systemui.recent.RecentsPanelView>

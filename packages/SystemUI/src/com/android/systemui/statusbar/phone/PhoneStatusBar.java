@@ -558,6 +558,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 Settings.System.NOTIFICATION_ALPHA))) {
                 setNotificationAlpha();
             } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.PIE_CONTROLS))) {
+                attachPieContainer(isPieEnabled());
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.EXPANDED_DESKTOP_STATE))) {
+                mNavigationBarOverlay.setIsExpanded(isExpanded());
+            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_EXPANDED))) {
                     mHeadsUpExpandedByDefault = Settings.System.getIntForUser(
                             mContext.getContentResolver(),
@@ -3960,9 +3966,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void recreateStatusBar() {
         mRecreating = true;
-        
         removeHeadsUpView();
-
         mStatusBarContainer.removeAllViews();
         mStatusBarContainer.clearDisappearingChildren();
 
