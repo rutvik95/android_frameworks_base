@@ -34,47 +34,6 @@ public class NavigationRingConstants {
     public static final String ACTION_STANDBY =               "standby";
     public static final String ACTION_TORCH =                 "torch";
     public static final String ACTION_VIBRATE =               "ringVibrate";
-    public static final String ACTION_POWER_MENU           = "**powerMenu**";	
-    public static final String ACTION_LAST_APP             = "**last_app**";   
-
-    // no action
-    public static final String ACTION_NULL            = "**null**";
-
-    // this shorcut constant is only used to identify if the user
-    // selected in settings a custom app...after it is choosed intent uri
-    // is saved in the ButtonConfig object
-    public static final String ACTION_APP          = "**app**";
-
-    public static final String ICON_EMPTY = "empty";
-    public static final String SYSTEM_ICON_IDENTIFIER = "system_shortcut=";
-    public static final String ACTION_DELIMITER = "|";
-
-    public static final String NAVIGATION_CONFIG_DEFAULT =
-          ACTION_BACK    + ACTION_DELIMITER
-        + ACTION_NULL    + ACTION_DELIMITER
-        + ICON_EMPTY     + ACTION_DELIMITER
-        + ACTION_HOME    + ACTION_DELIMITER
-        + ACTION_NULL    + ACTION_DELIMITER
-        + ICON_EMPTY     + ACTION_DELIMITER
-        + ACTION_RECENTS + ACTION_DELIMITER
-        + ACTION_NULL    + ACTION_DELIMITER
-        + ICON_EMPTY;
-
-    public static final String PIE_SECOND_LAYER_CONFIG_DEFAULT =
-          ACTION_POWER         + ACTION_DELIMITER
-        + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY           + ACTION_DELIMITER
-        + ACTION_NOTIFICATIONS + ACTION_DELIMITER
-        + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY           + ACTION_DELIMITER
-        + ACTION_SEARCH        + ACTION_DELIMITER
-        + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY           + ACTION_DELIMITER
-        + ACTION_SCREENSHOT    + ACTION_DELIMITER
-        + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY           + ACTION_DELIMITER
-        + ACTION_IME           + ACTION_DELIMITER
-        + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY;
->>>>>>> 2ffd755... Power menu into navring targets (1/2)
+    public static final String ACTION_POWER_MENU =            "powerMenu";
+    public static final String ACTION_LAST_APP =              "last_app";
 }

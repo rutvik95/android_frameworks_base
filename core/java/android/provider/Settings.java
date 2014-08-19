@@ -3558,18 +3558,6 @@ public final class Settings {
          public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
 
         /**
-         * Whether to show the network status in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
- 
-        /**
-         * Frequency at which stats are updated, in milliseconds
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_frequency";
-
-        /**
          * Whether to show the signal text or signal bars.
          * default: 0
          * 0: show signal bars
@@ -3849,18 +3837,6 @@ public final class Settings {
          * @hide
          */
         public static final String QUIET_HOURS_DIM = "quiet_hours_dim";
-        
-        /**
-         * show clear all recents button
-         *  @hide
-         */
-        public static final String SHOW_CLEAR_RECENTS_BUTTON = "clear_recents_button";
-
-        /**
-         * location of the clear all rectents button
-         * @hide
-         */
-        public static final String CLEAR_RECENTS_BUTTON_LOCATION = "clear_recents_button_location";
 
         /**
          * whether which Ram Usage Bar mode is used on recent switcher
@@ -4305,27 +4281,6 @@ public final class Settings {
          * @hide
          */
         public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
-
-        /**  
-         * Enable Menu key
-         *
-         * @hide
-         */
-        public static final String KEY_MENU_ENABLED = "key_menu_enabled";
-
-        /**
-         * Enable Back key
-         *
-         * @hide
-         */
-        public static final String KEY_BACK_ENABLED = "key_back_enabled";
- 
-        /**
-         * Enable Home key
-         *
-         * @hide
-         */
-        public static final String KEY_HOME_ENABLED = "key_home_enabled";
 
         /**
          * Whether to unlock the screen with the home key.  The value is boolean (1 or 0).

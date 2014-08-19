@@ -84,6 +84,8 @@
                     android:singleLine="true" />
             </view>
 
+        </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/recents_bg_protect"
                 android:layout_width="match_parent"
@@ -133,6 +135,4 @@
                     android:src="@drawable/ic_notify_clear" />
 
         </FrameLayout>
-
-    </LinearLayout>
 </com.android.systemui.recent.RecentsPanelView>

@@ -5,9 +5,6 @@
   <!-- Halo -->
   <java-symbol type="style" name="Theme.DeviceDefault.FloatingWindow" />
   <java-symbol type="style" name="Theme.DeviceDefault.FloatingWindowLight" />
-  
-  <!-- HW Keys enable/disable -->
-  <java-symbol type="bool" name="config_hwKeysOnNavBar" />
 
   <!-- Slim recent app screen-->
   <java-symbol type="integer" name="config_recentDefaultDur" />
