@@ -113,9 +113,7 @@ public class ActionTarget {
         } else if (action.equals(ACTION_STANDBY)) {
             injectKeyDelayed(KeyEvent.KEYCODE_POWER);
             return true;
-        } else if (action.equals(ACTION_IME_SWITCHER)) {
-			mContext.sendBroadcast(new Intent("android.settings.SHOW_INPUT_METHOD_PICKER"));
-		} else if (action.equals(ACTION_POWER_MENU)) {
+        } else if (action.equals(ACTION_POWER_MENU)) {
             try {
                 windowManagerService.toggleGlobalMenu();
             } catch (RemoteException e) {
@@ -123,6 +121,9 @@ public class ActionTarget {
             return true;
         } else if (action.equals(ACTION_LAST_APP)) {
             TaskUtils.toggleLastAppImpl(mContext);
+            return true;
+        } else if (action.equals(ACTION_IME_SWITCHER)) {
+            mContext.sendBroadcast(new Intent("android.settings.SHOW_INPUT_METHOD_PICKER"));
             return true;
         } else if (action.equals(ACTION_SCREENSHOT)) {
             takeScreenshot();
@@ -209,7 +210,7 @@ public class ActionTarget {
 
             return false;
         }
-    }
+    } 
 
     private void dismissKeyguard() {
         try {

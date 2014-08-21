@@ -26,6 +26,7 @@ import android.app.TaskStackBuilder;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -134,7 +135,6 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected static final int MSG_SHOW_HEADS_UP = 1026;
     protected static final int MSG_HIDE_HEADS_UP = 1027;
     protected static final int MSG_ESCALATE_HEADS_UP = 1028;
-<<<<<<< HEAD
     protected static final int MSG_TOGGLE_LAST_APP = 1030;
     protected static final int MSG_TOGGLE_SCREENSHOT = 1031;
     protected static final int MSG_TOGGLE_KILL_APP = 1032;
@@ -439,15 +439,13 @@ public abstract class BaseStatusBar extends SystemUI implements
                         mContext.getContentResolver(), Settings.System.CUSTOM_RECENT_TOGGLE, false);
 
         if (mCustomRecent) {
-            slimRecents = new RecentController(mContext);
+            slimRecents = new RecentController(mContext, mLayoutDirection);
         } else {
             stockRecents = getComponent(RecentsComponent.class);
         }
 
         mLocale = mContext.getResources().getConfiguration().locale;
         mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
-
-        mRecents = new RecentController(mContext, mLayoutDirection);
 
         mStatusBarContainer = new FrameLayout(mContext);
 
@@ -772,12 +770,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 final PendingIntent contentIntent = sbNotification.getNotification().contentIntent;
                 if (packageNameF == null) return false;
                 if (v.getWindowToken() == null) return false;
-
-                //Long click menu broken on PIE mode...pop up menu is useless (auto-launch on long click)
-                if (expanded) {
-                    launchFloating(contentIntent);
-                    animateCollapsePanels(CommandQueue.FLAG_EXCLUDE_NONE);
-                    return true;
                 }
                 
                 mNotificationBlamePopup = new PopupMenu(mContext, v);
@@ -1431,7 +1423,7 @@ public abstract class BaseStatusBar extends SystemUI implements
                     // the stack trace isn't very helpful here.  Just log the exception message.
                     Log.w(TAG, "Sending contentIntent failed: " + e);
                 }
-            } else if (mIntent != null) {
+            } else if (mPendingIntent != null) {
                 if (mFloat && allowed) mIntent.addFlags(flags);
                 mContext.startActivity(mIntent);
             }
@@ -1871,7 +1863,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         final PendingIntent contentIntent = notification.getNotification().contentIntent;
         if (contentIntent != null) {
             final View.OnClickListener listener =
-                    mNotificationHelper.getNotificationClickListener(entry, headsUp, false);
+                    mNotificationHelper.getNotificationClickListener(entry, headsUp);
             entry.content.setOnClickListener(listener);
             entry.floatingIntent = makeClicker(contentIntent,
                     notification.getPackageName(), notification.getTag(), notification.getId());

@@ -1127,13 +1127,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return mKeyguardManager;
     }
 
+    void showGlobalActionsDialog() {
+        showGlobalActionsDialog(false);
+    }
+    
     void showGlobalActionsDialog(boolean showRebootMenu) { 
         if (mGlobalActions == null) {
             mGlobalActions = new GlobalActions(mContext, mWindowManagerFuncs);
         }
         final boolean keyguardLocked = getKeyguardManager().isKeyguardLocked();
         mGlobalActions.showDialog(keyguardLocked, isDeviceProvisioned(), showRebootMenu); 
-        if (keyguardLocked && showRebootMenu) {
+        if (keyguardLocked) {
             // since it took two seconds of long press to bring this up,
             // poke the wake lock so they have some time to see the dialog.
             mPowerManager.userActivity(SystemClock.uptimeMillis(), false);
@@ -1446,9 +1450,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void updateKeyAssignments() {
         int activeHardwareKeys = mDeviceHardwareKeys;
 
-        if (mDevForceNavbar) {
-            activeHardwareKeys = 0;
-        }
         final boolean hasMenu = (activeHardwareKeys & KEY_MASK_MENU) != 0;
         final boolean hasHome = (activeHardwareKeys & KEY_MASK_HOME) != 0;
         final boolean hasAssist = (activeHardwareKeys & KEY_MASK_ASSIST) != 0;
