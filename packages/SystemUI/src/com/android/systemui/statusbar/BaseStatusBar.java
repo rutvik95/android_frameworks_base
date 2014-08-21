@@ -1863,7 +1863,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         final PendingIntent contentIntent = notification.getNotification().contentIntent;
         if (contentIntent != null) {
             final View.OnClickListener listener =
-                    mNotificationHelper.getNotificationClickListener(entry, headsUp);
+                    mNotificationHelper.getNotificationClickListener(entry, headsUp, false);
             entry.content.setOnClickListener(listener);
             entry.floatingIntent = makeClicker(contentIntent,
                     notification.getPackageName(), notification.getTag(), notification.getId());
