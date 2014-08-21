@@ -866,7 +866,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 return true;
             }
         };
-    }
 
     class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
         public void onRemoveCompleted(final String packageName, final boolean succeeded) {
