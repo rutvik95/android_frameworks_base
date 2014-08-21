@@ -770,8 +770,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 final PendingIntent contentIntent = sbNotification.getNotification().contentIntent;
                 if (packageNameF == null) return false;
                 if (v.getWindowToken() == null) return false;
-                }
-                
                 mNotificationBlamePopup = new PopupMenu(mContext, v);
                 mNotificationBlamePopup.getMenuInflater().inflate(
                         R.menu.notification_popup_menu,
@@ -864,8 +862,9 @@ public abstract class BaseStatusBar extends SystemUI implements
                 mNotificationBlamePopup.show();
 
                 return true;
-            }
-        };
+	     }
+	  };
+    }
 
     class FakeClearUserDataObserver extends IPackageDataObserver.Stub {
         public void onRemoveCompleted(final String packageName, final boolean succeeded) {
@@ -1406,7 +1405,7 @@ public abstract class BaseStatusBar extends SystemUI implements
                 // System is dead
             }
             if (mPile.launchNextNotificationFloating()) {
-                if (Intent != null) {
+                if (mPendingIntent != null) {
                     launchFloating(mPendingIntent);
                 }
             } else if (mPendingIntent != null) {
