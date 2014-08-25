@@ -86,6 +86,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
     private OnClickListener mRecentsClickListener;
     private OnLongClickListener mRecentsLongClickListener;
     private OnTouchListener mRecentsPreloadListener;
+    private OnLongClickListener mRecentsLongClickListener;
     private OnTouchListener mHomeSearchActionListener;
 
     final Display mDisplay;
@@ -334,11 +335,13 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
         return mInEditMode;
     }
 
-    /* package */ void setListeners(OnClickListener recentsClickListener, OnLongClickListener recentsLongClickListener,
-            OnTouchListener recentsPreloadListener, OnTouchListener homeSearchActionListener) {
+    /* package */ void setListeners(OnClickListener recentsClickListener,
+            OnTouchListener recentsPreloadListener, OnLongClickListener recentsLongClickListener,
+            OnTouchListener homeSearchActionListener) {
         mRecentsClickListener = recentsClickListener;
         mRecentsLongClickListener = recentsLongClickListener;
         mRecentsPreloadListener = recentsPreloadListener;
+        mRecentsLongClickListener = recentsLongClickListener;
         mHomeSearchActionListener = homeSearchActionListener;
         updateButtonListeners();
     }
@@ -351,6 +354,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
             if (button instanceof KeyButtonView) {
                 button.setOnClickListener(null);
                 button.setOnTouchListener(null);
+                button.setOnLongClickListener(null);
             }
         }
     }
@@ -361,6 +365,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
             recentView.setOnClickListener(mRecentsClickListener);
             recentView.setOnLongClickListener(mRecentsLongClickListener);
             recentView.setOnTouchListener(mRecentsPreloadListener);
+            recentView.setOnLongClickListener(mRecentsLongClickListener);
         }
         View homeView = findButton(NavbarEditor.NAVBAR_HOME);
         if (homeView != null) {
