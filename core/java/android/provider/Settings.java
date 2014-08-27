@@ -2014,6 +2014,13 @@ public final class Settings {
         public static final int VOLUME_OVERLAY_NONE = 3;
 
         /**
+         * Volume panel background color
+         *
+         * @hide
+         */
+        public static final String VOLUME_PANEL_BG_COLOR = "volume_panel_bg_color";
+
+        /**
          * Volume Adjust Sounds Enable, This is the noise made when using volume hard buttons
          * Defaults to 1 - sounds enabled
          * @hide
