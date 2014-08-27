@@ -4504,18 +4504,6 @@ public final class Settings {
          */
         public static final String LOCKSCREEN_NOTIFICATIONS_DISABLE_HEADS_UP = "lockscreen_notifications_disable_heads_up";
          
-       /**
-         * Swipe recents for floating windows option
-         * @hide
-         */
-        public static final String RECENTS_SWIPE_FLOATING = "recents_swipe_floating";
- 
-        /**
-         * Swipe notification for floating window option
-         * @hide
-         */
-        public static final String STATUS_BAR_NOTIFICATION_SWIPE_FLOATING = "status_bar_notification_swipe_floating";
-         
         /**
          * Whether heads up notification is shown on the bottom of the screen (default = disabled)
          *
@@ -4708,8 +4696,6 @@ public final class Settings {
             PHONE_BLACKLIST_UNKNOWN_NUMBER_MODE,
             PHONE_BLACKLIST_REGEX_ENABLED,
             INCOMING_CALL_STYLE,
-            RECENTS_SWIPE_FLOATING,
-            STATUS_BAR_NOTIFICATION_SWIPE_FLOATING            
         };
 
         // Settings moved to Settings.Secure
