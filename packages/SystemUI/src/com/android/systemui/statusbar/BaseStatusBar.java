@@ -1395,6 +1395,9 @@ public abstract class BaseStatusBar extends SystemUI implements
             } catch (RemoteException e) {
             }
 
+           int flags = Intent.FLAG_FLOATING_WINDOW | Intent.FLAG_ACTIVITY_CLEAR_TASK;
+           boolean allowed = true; // default on, except for preloaded false
+
             if (mIntent != null) {
 
                  if (mFloat && !"android".equals(mPkg)) {
