@@ -75,7 +75,7 @@
         android:padding="2dp"
         />
 
-    <FrameLayout android:id="@+id/action_button_holder"
+    <ImageView android:id="@+id/clear_all_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
@@ -99,14 +99,6 @@
             android:contentDescription="@string/accessibility_clear_all"
             />             
 
-        <ImageView android:id="@+id/add_tile_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_menu_add"
-            android:visibility="gone"
-            android:contentDescription="@string/accessibility_desc_add_quick_settings"
-            />
     </FrameLayout>
 
     <FrameLayout android:id="@+id/settings_button_holder"
