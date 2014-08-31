@@ -112,8 +112,8 @@ import com.android.systemui.statusbar.phone.Ticker;
 import com.android.systemui.statusbar.policy.NotificationRowLayout;
 import com.android.systemui.statusbar.policy.PieController;
 
-import com.android.internal.util.axxion.TaskUtils;
-import com.android.internal.util.cm.DevUtils;
+//import com.android.internal.util.axxion.TaskUtils;
+import com.android.internal.util.cm.ActionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1001,7 +1001,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     
         Runnable mKillTask = new Runnable() {
         public void run() {
-            if (DevUtils.killForegroundApplication(mContext)) {
+            if (ActionUtils.switchToLastApp(mContext, mCurrentUserId)); {
                 Toast.makeText(mContext, R.string.app_killed_message, Toast.LENGTH_SHORT).show();
             }
         }
@@ -1186,7 +1186,7 @@ public abstract class BaseStatusBar extends SystemUI implements
                   break;
              case MSG_TOGGLE_LAST_APP:
                  if (DEBUG) Log.d(TAG, "toggle last app");
-                 TaskUtils.toggleLastAppImpl(mContext);
+                 ActionUtils.switchToLastApp(mContext, mCurrentUserId);
                  break;
              case MSG_TOGGLE_SCREENSHOT:
                  if (DEBUG) Slog.d(TAG, "toggle screenshot");
