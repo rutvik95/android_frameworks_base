@@ -3580,31 +3580,7 @@ public final class Settings {
          * @hide
          */
         public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
-
-    	/**
-         * Whether to show the network status in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
  
-        /**
-         * Frequency at which stats are updated, in milliseconds
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_frequency";
-
-	    /**
-         * Network stats Color style
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_COLOR = "status_bar_network_usage_color"; 
-
-	    /**
-         * Network stats hide if there's no traffic
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_HIDE = "status_bar_network_hide";  
-        
         /**
          * Whether to scramble a pin unlock layout
          * @hide
