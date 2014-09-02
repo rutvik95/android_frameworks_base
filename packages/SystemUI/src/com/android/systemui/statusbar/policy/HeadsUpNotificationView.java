@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import com.android.systemui.ExpandHelper;
 import com.android.systemui.R;
 import com.android.systemui.SwipeHelper;
+import com.android.systemui.statusbar.notification.NotificationHelper;
 import com.android.systemui.statusbar.BaseStatusBar;
 import com.android.systemui.statusbar.NotificationData;
 
@@ -55,6 +56,10 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
     private ImageButton mSnoozeButton;
 
     private NotificationData.Entry mHeadsUp;
+    
+    // Notification helper
+    protected NotificationHelper mNotificationHelper;
+
     private boolean mHeadsUpIsExpanded;
     private boolean mSnoozeButtonVisibility;
 
@@ -71,6 +76,10 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
     public void setBar(BaseStatusBar bar) {
         mBar = bar;
     }
+    
+    public void setNotificationHelper(NotificationHelper notificationHelper) {
+        mNotificationHelper = notificationHelper;
+    }
 
     public void setSnoozeVisibility(boolean show) {
         mSnoozeButtonVisibility = show;
@@ -85,6 +94,7 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
 
     public boolean setNotification(NotificationData.Entry headsUp, boolean isExpanded) {
         mHeadsUp = headsUp;
+        mHeadsUp.content.setOnClickListener(mNotificationHelper.getNotificationClickListener(headsUp, true));
         mHeadsUpIsExpanded = isExpanded;
         mHeadsUp.row.setExpanded(isExpanded && mHeadsUp.row.isExpandable());
         if (mContentHolder == null) {

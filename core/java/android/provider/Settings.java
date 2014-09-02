@@ -4542,6 +4542,13 @@ public final class Settings {
         public static final String HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
 
         /**
+         * Heads Up in Floating Window
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_FLOATING_WINDOW = "heads_up_floating_window";
+
+        /**
          * Time how long heads up will show till it is automatically hidden.
          * If time = 0 notifications stays till the user interacts with it.
          *
