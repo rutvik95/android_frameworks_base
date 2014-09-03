@@ -94,7 +94,7 @@ public class Clock extends TextView implements DemoMode, OnClickListener, OnLong
     protected int mClockStyle = STYLE_CLOCK_RIGHT;
     protected int mClockFontStyle = FONT_NORMAL;
     protected boolean mShowClock;
-
+    private boolean mScreenOn = true;
     private int mAmPmStyle;
     
     private SettingsObserver mSettingsObserver;

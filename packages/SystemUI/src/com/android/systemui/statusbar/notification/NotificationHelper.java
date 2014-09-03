@@ -16,10 +16,13 @@
 
 package com.android.systemui.statusbar.notification;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -74,6 +77,7 @@ public class NotificationHelper {
     private Peek mPeek;
     private PeekAppReceiver mPeekAppReceiver;
     private TelephonyManager mTelephonyManager;
+    private ActivityManager mActivityManager;
 
     public boolean mRingingOrConnected = false;
     public boolean mPeekAppOverlayShowing = false;
@@ -240,10 +244,7 @@ public class NotificationHelper {
     }
          
      // THIS IS FOR HEADSUP FLOATING WINDOW    
-        
-        // we need to know which is the foreground app
-        mActivityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-
+    
     public String getForegroundPackageName() {
         List<RunningTaskInfo> taskInfo = mActivityManager.getRunningTasks(1);
         ComponentName componentInfo = taskInfo.get(0).topActivity;
