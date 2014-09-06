@@ -88,7 +88,9 @@ public class NotificationHelper {
         mPeek = mStatusBar.getPeekInstance();
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mTelephonyManager.listen(new CallStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
-
+        // we need to know which is the foreground app
+        mActivityManager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        
         // create peek app receiver if null
         if (mPeekAppReceiver == null) {
             mPeekAppReceiver = new PeekAppReceiver();
@@ -244,7 +246,7 @@ public class NotificationHelper {
     }
          
      // THIS IS FOR HEADSUP FLOATING WINDOW    
-    
+
     public String getForegroundPackageName() {
         List<RunningTaskInfo> taskInfo = mActivityManager.getRunningTasks(1);
         ComponentName componentInfo = taskInfo.get(0).topActivity;
