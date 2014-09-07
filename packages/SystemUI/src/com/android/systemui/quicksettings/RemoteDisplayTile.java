@@ -1,38 +1,24 @@
-/*
- * Copyright (C) 2013-2014 The CyanogenMod Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.android.systemui.quicksettings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.display.DisplayManager;
 import android.media.MediaRouter;
 import android.media.MediaRouter.RouteInfo;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.android.systemui.R;
-import com.android.systemui.statusbar.phone.QuickSettingsContainerView;
 import com.android.systemui.statusbar.phone.QuickSettingsController;
+import com.android.systemui.statusbar.phone.QuickSettingsContainerView;
 import com.android.systemui.statusbar.phone.QuickSettingsTileView;
 
-public class RemoteDisplayTile extends QuickSettingsTile implements
-        QuickSettingsTileView.OnPrepareListener {
+public class RemoteDisplayTile extends QuickSettingsTile{
+
+    private boolean enabled = false;
+    private boolean connecting;
     private final MediaRouter mMediaRouter;
-    private RouteInfo mConnectedRoute;
-    private boolean mEnabled;
-    
     private final RemoteDisplayRouteCallback mRemoteDisplayRouteCallback;
     private MediaRouter.RouteInfo connectedRoute;
 
@@ -56,8 +42,7 @@ public class RemoteDisplayTile extends QuickSettingsTile implements
     }
 
     /** Callback for changes to remote display routes. */
-    private final MediaRouter.SimpleCallback mRemoteDisplayRouteCallback =
-            new MediaRouter.SimpleCallback() {
+    private class RemoteDisplayRouteCallback extends MediaRouter.SimpleCallback {
         @Override
         public void onRouteAdded(MediaRouter router, RouteInfo route) {
             updateRemoteDisplays();
@@ -78,33 +63,21 @@ public class RemoteDisplayTile extends QuickSettingsTile implements
         public void onRouteUnselected(MediaRouter router, int type, RouteInfo route) {
             updateRemoteDisplays();
         }
-    };
-
-    public RemoteDisplayTile(Context context, QuickSettingsController qsc) {
-        super(context, qsc);
-
-        mOnClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startSettingsActivity(android.provider.Settings.ACTION_WIFI_DISPLAY_SETTINGS);
-            }
-        };
-
-        mMediaRouter = (MediaRouter) context.getSystemService(Context.MEDIA_ROUTER_SERVICE);
     }
 
     private void updateRemoteDisplays() {
-        RouteInfo connectedRoute =
-                mMediaRouter.getSelectedRoute(MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY);
+        connectedRoute = mMediaRouter.getSelectedRoute(
+                MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY);
+        enabled = connectedRoute != null && (connectedRoute.getSupportedTypes()
+                & MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY) != 0;
 
-        if (connectedRoute != null &&
-                (connectedRoute.getSupportedTypes() & MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY) != 0) {
-            mEnabled = true;
-            mConnectedRoute = connectedRoute;
+        if (enabled) {
+            connecting = connectedRoute.isConnecting();
         } else {
-            mEnabled = mMediaRouter.isRouteAvailable(MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY,
+            connectedRoute = null;
+            connecting = false;
+            enabled = mMediaRouter.isRouteAvailable(MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY,
                     MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE);
-            mConnectedRoute = null;
         }
 
         updateResources();
@@ -112,21 +85,16 @@ public class RemoteDisplayTile extends QuickSettingsTile implements
 
     @Override
     void onPostCreate() {
-        mTile.setOnPrepareListener(this);
+        mMediaRouter.addCallback(MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY,
+                mRemoteDisplayRouteCallback,
+                MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
         updateRemoteDisplays();
         super.onPostCreate();
     }
 
     @Override
-    public void onPrepare() {
-        mMediaRouter.addCallback(MediaRouter.ROUTE_TYPE_REMOTE_DISPLAY,
-                mRemoteDisplayRouteCallback,
-                MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
-        updateRemoteDisplays();
-    }
-
-    @Override
-    public void onUnprepare() {
+    public void onDestroy() {
+        super.onDestroy();
         mMediaRouter.removeCallback(mRemoteDisplayRouteCallback);
     }
 
@@ -136,12 +104,12 @@ public class RemoteDisplayTile extends QuickSettingsTile implements
         super.updateResources();
     }
 
-    private void updateTile() {
-        if (mEnabled && mConnectedRoute != null) {
-            mLabel = mConnectedRoute.getName().toString();
-            mDrawable = mConnectedRoute.isConnecting() ?
-                    R.drawable.ic_qs_cast_connecting : R.drawable.ic_qs_cast_connected;
-        } else {
+    private synchronized void updateTile() {
+        if(enabled && (connectedRoute != null)) {
+            mLabel = connectedRoute.getName().toString();
+            mDrawable = connecting ?
+                R.drawable.ic_qs_cast_connecting : R.drawable.ic_qs_cast_connected;
+        }else{
             mLabel = mContext.getString(R.string.quick_settings_remote_display_no_connection_label);
             mDrawable = R.drawable.ic_qs_cast_available;
         }
@@ -149,7 +117,7 @@ public class RemoteDisplayTile extends QuickSettingsTile implements
 
     @Override
     void updateQuickSettings() {
-        mTile.setVisibility(mEnabled ? View.VISIBLE : View.GONE);
+        mTile.setVisibility(enabled ? View.VISIBLE : View.GONE);
         super.updateQuickSettings();
     }
 }

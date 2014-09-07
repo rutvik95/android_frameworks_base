@@ -1,35 +1,23 @@
-/*
- * Copyright (C) 2013-2014 The CyanogenMod Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.android.systemui.quicksettings;
 
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.QuickSettingsContainerView;
 import com.android.systemui.statusbar.phone.QuickSettingsController;
 
+
 public class NfcTile extends QuickSettingsTile {
-    private NfcAdapter mNfcAdapter;
+
+    private static NfcAdapter mNfcAdapter;
     private static final int NFC_ADAPTER_UNKNOWN = -100;
 
-    public NfcTile(Context context, QuickSettingsController qsc) {
+    public NfcTile(Context context, 
+            QuickSettingsController qsc) {
         super(context, qsc);
 
         mOnClick = new View.OnClickListener() {
@@ -42,11 +30,13 @@ public class NfcTile extends QuickSettingsTile {
                 }
             }
         };
+
         mOnLongClick = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 Intent intent = new Intent("android.settings.NFC_SETTINGS");
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startSettingsActivity(intent);
                 return true;
             }
@@ -57,7 +47,7 @@ public class NfcTile extends QuickSettingsTile {
 
     @Override
     void onPostCreate() {
-        updateTile();
+        updateTile(getNfcState());
         super.onPostCreate();
     }
 
@@ -68,12 +58,13 @@ public class NfcTile extends QuickSettingsTile {
 
     @Override
     public void updateResources() {
-        updateTile();
+        updateTile(getNfcState());
         updateQuickSettings();
     }
 
     protected void toggleState() {
-        switch (getNfcState()) {
+        int state = getNfcState();
+        switch (state) {
             case NfcAdapter.STATE_TURNING_ON:
             case NfcAdapter.STATE_ON:
                 mNfcAdapter.disable();
@@ -85,8 +76,9 @@ public class NfcTile extends QuickSettingsTile {
         }
     }
 
-    private void updateTile() {
-        switch (getNfcState()) {
+    private synchronized void updateTile(int state) {
+
+        switch (state) {
         case NfcAdapter.STATE_TURNING_ON:
         case NfcAdapter.STATE_ON:
             mDrawable = R.drawable.ic_qs_nfc_on;
