@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.QuickSettingsController;
@@ -160,5 +159,4 @@ public class MobileNetworkTile extends NetworkTile {
         }
         return string;
     }
-
 }
